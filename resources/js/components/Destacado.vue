@@ -1,8 +1,9 @@
 <template>
-  <div class="ml-4 mt-2 h-40">
+  <div class="ml-4 mt-2">
     <h2 class="text-enfatizado text-lg mb-2">Destacado</h2>
     <splide :options="options">
-      <splide-slide v-for="src in images" :key="src">
+      <splide-slide v-for="src in images" :key="src" class="relative">
+
         <TarjetaHorizontal :src="src" />
       </splide-slide>
     </splide>

@@ -12,7 +12,8 @@ module.exports = {
                 primario: "#2291FF",
                 fondo: "#FFFF",
                 texto: "#DADDE1",
-                enfatizado: "#0E3746"
+                enfatizado: "#0E3746",
+                fondoClaro: "#e8f1f9"
             }
         }
     },

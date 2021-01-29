@@ -1,5 +1,5 @@
 <template>
-    <router-link to="/" class="inline-block py-1 px-6 bg-white rounded-lg">
+    <router-link to="/" class="inline-block py-1 px-6 bg-white rounded-lg z-20">
         <span class="text-enfatizado text-center text-md">
             See More
         </span>
