@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col overflow-hidden">
-    <img :src="image" class="w-full h-36 object-cover object-center" alt="" />
+    <img :src="image" class="w-full h-28 object-cover object-center" alt="" />
     <div class="ml-1">
       <span class="text-enfatizado font-medium">
         ${{ new Intl.NumberFormat().format(price * (1 - discount)) }}

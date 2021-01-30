@@ -12,7 +12,7 @@
             :price="product.price"
             :name="product.name"
             :discount="product.discount"
-            class="rounded-lg mt-2 border border-gray-200"
+            class="rounded-lg mt-2 border border-gray-100"
           />
     </div>
   </div>
