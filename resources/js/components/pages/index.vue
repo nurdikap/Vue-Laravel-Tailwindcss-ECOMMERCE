@@ -12,12 +12,12 @@
 </template>
 
 <script>
-import Menu from "./Menu.vue";
-import Destacado from "./Destacado.vue";
-import Division from "./OspinaTrap/Division.vue";
-import Productos from "./Productos.vue";
-import Categorias from "./Categorias.vue";
-import BarraNavegacion from "./BarraNavegacion.vue";
+import Menu from "../Menu.vue";
+import Destacado from "../Destacado.vue";
+import Division from "../OspinaTrap/Division.vue";
+import Productos from "../Productos.vue";
+import Categorias from "../Categorias.vue";
+import BarraNavegacion from "../BarraNavegacion.vue";
 
 export default {
   data() {

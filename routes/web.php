@@ -21,6 +21,10 @@ Route::get('/categorias', function () {
     return view('index');
 });
 
+Route::get('/{category}/{subcategory}', function () {
+    return view('index');
+});
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

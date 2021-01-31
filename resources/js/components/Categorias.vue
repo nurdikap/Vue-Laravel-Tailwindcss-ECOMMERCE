@@ -2,7 +2,7 @@
   <div class="flex w-full flex-col px-4">
     <div class="flex justify-between">
       <h3 class="text-enfatizado text-lg">Categorias</h3>
-      <span class="text-sm font-light"> Ver todas </span>
+      <router-link :to="{name:'categorias'}" class="text-sm font-light"> Ver todas </router-link>
     </div>
     <div class="grid grid-cols-3 gap-x-3 mt-2">
       <div

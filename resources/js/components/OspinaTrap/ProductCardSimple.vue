@@ -1,6 +1,6 @@
 <template>
-  <div class="flex flex-col overflow-hidden bg-gray-50">
- <div class="relative">
+  <div class="flex flex-col w-full h-full space-y-2 pb-2 bg-gray-50">
+    <div class="relative">
       <img :src="image" class="w-full h-36 object-fill object-center" alt="" />
       <svg
         @click="clicked = !clicked"
@@ -18,7 +18,11 @@
         />
       </svg>
     </div>
-     <div class="mx-1 flex justify-between items-center">
+
+    <div class="font-light mx-2">
+      {{ name }}
+    </div>
+    <div class="mx-2 flex justify-between items-center">
       <span class="text-enfatizado font-medium">
         ${{ new Intl.NumberFormat().format(price * (1 - discount)) }}
       </span>
@@ -35,12 +39,6 @@
         </svg>
         <span>4.8</span>
       </div>
-    </div>
-    <div class="font-light mb-2 ml-1">
-      {{ name }}
-    </div>
-    <div class="w-full bg-primario py-1.5 text-center">
-      <span class="text-white font-medium"> Comprar </span>
     </div>
   </div>
 </template>
@@ -63,7 +61,6 @@ export default {
       return this.clicked ? '#2291FF' : 'none';
     },
   },
-
   components: {
     BotonRectangular,
   },

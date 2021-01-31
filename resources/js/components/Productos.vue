@@ -4,7 +4,7 @@
       <h3 class="text-enfatizado text-lg">Productos</h3>
       <span class="text-sm font-light"> Ver todos </span>
     </div>
-    <div class="flex flex-1 w-full justify-between pb-2 space-x-1.5">
+    <div class="grid grid-cols-2 w-full pb-2 space-x-1.5">
           <ProductCard
             v-for="product in products"
             :key="product.name"
@@ -28,13 +28,13 @@ export default {
           name: "Martillo",
           price: 60000,
           discount: 0.2,
-          image: "images/productos/productos1.jpg",
+          image: "images/productos/final1.png",
         },
         {
           name: "Taladro",
           price: 155000,
           discount: 0.3,
-          image: "images/productos/productos2.jpg",
+          image: "images/productos/final2.jpg",
         },
       ],
     };

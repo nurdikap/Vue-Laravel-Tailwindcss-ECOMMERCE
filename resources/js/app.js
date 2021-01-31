@@ -4,7 +4,7 @@ window.Vue = require('vue');
 import router from './routes';
 
 
-Vue.component('index', require('./components/index.vue').default);
+Vue.component('index', require('./components/pages/index.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

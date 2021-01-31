@@ -17,7 +17,10 @@
         />
       </svg>
     </div>
-    <div>
+    <div class="relative">
+      <div class="h-5 w-5 left-3 bottom-3 bg-primario rounded-full text-white shadow-azul-grande flex items-center justify-center absolute text-xs">
+        10
+      </div>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"

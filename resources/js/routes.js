@@ -8,18 +8,18 @@ export default new Router({
         {
             path: "/",
             name: "home",
-            component: require("./components/index.vue").default
+            component: require("./components/pages/index.vue").default
         },
         {
             path: "/categorias/",
             name: "categorias",
-            component: require("./components/CategoriasPage.vue").default,
-            
+            component: require("./components/pages/CategoriasPage.vue").default
         },
-    
-      
-      
-    
+        {
+            path: "/:category/:subcategory",
+            name: "subcategory",
+            component: require("./components/pages/ProductsPage.vue").default
+        }
     ],
     mode: "history"
 });

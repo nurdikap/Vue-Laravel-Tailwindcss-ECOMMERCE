@@ -28,7 +28,7 @@ export default {
           left: 0,
           right: "0.5rem",
         },
-        height: 200,
+        height: 165,
         arrows: false,
         pagination: false,
       },

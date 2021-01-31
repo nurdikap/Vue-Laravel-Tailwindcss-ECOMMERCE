@@ -1,7 +1,6 @@
 <template>
    <div
-        class="flex flex-col justify-center items-center  p-3 rounded-md"
-        :class="getBackground"
+        class="flex flex-col justify-center items-center p-3 rounded-md"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -23,7 +22,12 @@
 
 <script>
 export default {
-    props: ["name"]
+    computed:{
+      getBackground: function () {
+        return this.background
+      }
+    },
+    props: ['name','background']
 }
 </script>
 
