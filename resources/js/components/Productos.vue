@@ -4,7 +4,7 @@
       <h3 class="text-enfatizado text-lg">Productos</h3>
       <span class="text-sm font-light"> Ver todos </span>
     </div>
-    <div class="flex flex-1  w-full justify-between pb-2 gap-x-2.5">
+    <div class="flex flex-1 w-full justify-between pb-2 space-x-1.5">
           <ProductCard
             v-for="product in products"
             :key="product.name"

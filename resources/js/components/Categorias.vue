@@ -5,7 +5,9 @@
       <span class="text-sm font-light"> Ver todas </span>
     </div>
     <div class="grid grid-cols-3 gap-x-3 mt-2">
-      <div class="flex flex-col justify-center items-center bg-blue-50 p-3 rounded-md">
+      <div
+        class="flex flex-col justify-center items-center bg-blue-50 p-3 rounded-md"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -22,7 +24,9 @@
         </svg>
         <h4 class="text-center text-lg font-light">Electricos</h4>
       </div>
-      <div class="flex flex-col justify-center items-center bg-blue-50 p-3 rounded-md">
+      <div
+        class="flex flex-col justify-center items-center bg-blue-50 p-3 rounded-md"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -40,7 +44,9 @@
 
         <h4 class="text-center text-lg font-light">Agrícola</h4>
       </div>
-      <div class="flex flex-col justify-center items-center bg-blue-50 p-3 rounded-md">
+      <div
+        class="flex flex-col justify-center items-center bg-blue-50 p-3 rounded-md"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"

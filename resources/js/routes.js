@@ -11,9 +11,9 @@ export default new Router({
             component: require("./components/index.vue").default
         },
         {
-            path: "/test/:id",
-            name: "test",
-            component: require("./components/index.vue").default,
+            path: "/categorias/",
+            name: "categorias",
+            component: require("./components/CategoriasPage.vue").default,
             
         },
     

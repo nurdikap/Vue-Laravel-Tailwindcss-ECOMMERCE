@@ -1,11 +1,13 @@
 <template>
-  <div class="h-screen w-full flex flex-col">
+  <div class="w-full flex flex-col">
     <Menu class="bg-white" />
     <Destacado class="bg-white" />
     <Division class="my-2" />
     <Productos />
     <Division class="my-2" />
-    <Categorias />
+    <Categorias class="md:mb-12" />
+
+    <BarraNavegacion />
   </div>
 </template>
 
@@ -15,10 +17,16 @@ import Destacado from "./Destacado.vue";
 import Division from "./OspinaTrap/Division.vue";
 import Productos from "./Productos.vue";
 import Categorias from "./Categorias.vue";
+import BarraNavegacion from "./BarraNavegacion.vue";
 
 export default {
-  mounted() {
-    console.log("Component mounted.");
+  data() {
+    return { windowHeight: "640px" };
+  },
+  beforeMount() {
+    let vh = window.innerHeight;
+    console.log(vh);
+    this.windowHeight = vh + "px";
   },
   components: {
     Menu,
@@ -26,6 +34,9 @@ export default {
     Division,
     Productos,
     Categorias,
+    BarraNavegacion,
   },
 };
 </script>
+<style>
+</style>
