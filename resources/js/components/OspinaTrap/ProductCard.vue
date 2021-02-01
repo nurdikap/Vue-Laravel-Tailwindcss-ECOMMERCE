@@ -18,7 +18,7 @@
         />
       </svg>
     </div>
-     <div class="mx-1 flex justify-between items-center">
+     <div class="mx-1 flex mt-2 justify-between items-center">
       <span class="text-enfatizado font-medium">
         ${{ new Intl.NumberFormat().format(price * (1 - discount)) }}
       </span>

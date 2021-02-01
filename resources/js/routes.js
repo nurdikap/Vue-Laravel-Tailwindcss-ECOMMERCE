@@ -19,6 +19,11 @@ export default new Router({
             path: "/:category/:subcategory",
             name: "subcategory",
             component: require("./components/pages/ProductsPage.vue").default
+        },
+        {
+            path: "/:product",
+            name: "product",
+            component: require("./components/pages/ProductPage.vue").default
         }
     ],
     mode: "history"

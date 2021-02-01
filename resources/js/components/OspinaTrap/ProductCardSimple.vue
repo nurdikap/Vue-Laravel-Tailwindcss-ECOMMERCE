@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col w-full h-full space-y-2 pb-2 bg-gray-50">
+  <div class="flex flex-col w-full h-full space-y-1.5 pb-2 bg-gray-50">
     <div class="relative">
       <img :src="image" class="w-full h-36 object-fill object-center" alt="" />
       <svg
