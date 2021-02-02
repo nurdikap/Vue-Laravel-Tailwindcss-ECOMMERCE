@@ -21,10 +21,22 @@ export default new Router({
             component: require("./components/pages/ProductsPage.vue").default
         },
         {
+            path: "/carrito",
+            name: "carrito",
+            component: require("./components/pages/Carrito.vue").default
+        },
+        {
+            path: "/checkout",
+            name: "checkout",
+            component: require("./components/pages/Checkout.vue").default
+        },
+        {
             path: "/:product",
             name: "product",
             component: require("./components/pages/ProductPage.vue").default
-        }
+        },
+       
+       
     ],
     mode: "history"
 });
