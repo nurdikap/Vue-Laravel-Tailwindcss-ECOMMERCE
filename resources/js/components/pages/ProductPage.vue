@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col h-screen w-full space-y-5 bg-gray-50">
+  <div class="flex flex-col min-h-screen w-full space-y-5 bg-gray-50">
     <MenuSimple />
     <div class="w-full px-2">
       <splide :options="options">
@@ -71,6 +71,8 @@
         </span>
       </div>
     </div>
+    <div class="h-px w-full bg-blue-50"></div>
+
     <div class="grid grid-cols-2 mx-4 space-y-3">
       <div
         v-for="(item, index) in product.description"
@@ -87,14 +89,66 @@
           {{ item[Object.keys(item)[0]] }}
         </p>
       </div>
+
+      <div class="col-span-2">
+        <span class="text-xs capitalize text-gray-500 font-medium">
+          Cantidad
+        </span>
+      </div>
+      <div class="flex items-center">
+        <span class="text-sm">Por favor, Selecciona</span>
+      </div>
+      <div class="flex justify-end space-x-2 items-center">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          class="w-4 h-4 text-gray-500 cursor-pointer"
+          @click="quantity = quantity - 1 == 0 ? 1 : quantity - 1"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M18 12H6"
+          />
+        </svg>
+
+        <input
+          type="text"
+          v-model="quantity"
+          class="w-7 h-8 border text-center text-gray-600 border-primario"
+        />
+        <svg
+          @click="quantity = quantity + 1"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          class="w-4 h-4 text-gray-500 cursor-pointer"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+          />
+        </svg>
+      </div>
     </div>
+
+    <div class="h-px w-full bg-blue-50"></div>
+
     <div
       class="w-full grid grid-cols-2 space-x-3 text-center px-3 font-medium pb-4"
     >
-      <div class="py-2.5 bg-white text-primario border rounded border-primario">
+      <div
+        class="py-2.5 bg-gray-50 text-primario border rounded border-primario"
+      >
         Añadir al carrito
       </div>
-      <div class="py-2.5 bg-primario text-white rounded">Comprar</div>
+      <div class="py-2.5 bg-primario shadow-lg text-white rounded">Comprar</div>
     </div>
   </div>
 </template>
@@ -120,6 +174,7 @@ export default {
   },
   data() {
     return {
+      quantity: 1,
       clicked: false,
       product: {
         name: "Sport sneaker",

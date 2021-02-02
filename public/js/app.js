@@ -7176,6 +7176,60 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -7195,6 +7249,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
+      quantity: 1,
       clicked: false,
       product: {
         name: "Sport sneaker",
@@ -10023,7 +10078,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "flex flex-col h-screen w-full space-y-5 bg-gray-50" },
+    { staticClass: "flex flex-col min-h-screen w-full space-y-5 bg-gray-50" },
     [
       _c("MenuSimple"),
       _vm._v(" "),
@@ -10161,50 +10216,146 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
+      _c("div", { staticClass: "h-px w-full bg-blue-50" }),
+      _vm._v(" "),
       _c(
         "div",
         { staticClass: "grid grid-cols-2 mx-4 space-y-3" },
-        _vm._l(_vm.product.description, function(item, index) {
-          return _c(
+        [
+          _vm._l(_vm.product.description, function(item, index) {
+            return _c(
+              "div",
+              { key: index, staticClass: "flex flex-col justify-center" },
+              [
+                _c(
+                  "h3",
+                  {
+                    staticClass: "text-xs capitalize text-gray-500",
+                    class: { "text-right": !(index % 2 == 0) }
+                  },
+                  [
+                    _vm._v(
+                      "\n        " +
+                        _vm._s(Object.keys(item)[0].replaceAll("_", " ")) +
+                        "\n      "
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "p",
+                  {
+                    staticClass: "text-sm",
+                    class: { "text-right": !(index % 2 == 0) }
+                  },
+                  [
+                    _vm._v(
+                      "\n        " +
+                        _vm._s(item[Object.keys(item)[0]]) +
+                        "\n      "
+                    )
+                  ]
+                )
+              ]
+            )
+          }),
+          _vm._v(" "),
+          _vm._m(1),
+          _vm._v(" "),
+          _vm._m(2),
+          _vm._v(" "),
+          _c(
             "div",
-            { key: index, staticClass: "flex flex-col justify-center" },
+            { staticClass: "flex justify-end space-x-2 items-center" },
             [
               _c(
-                "h3",
+                "svg",
                 {
-                  staticClass: "text-xs capitalize text-gray-500",
-                  class: { "text-right": !(index % 2 == 0) }
+                  staticClass: "w-4 h-4 text-gray-500 cursor-pointer",
+                  attrs: {
+                    xmlns: "http://www.w3.org/2000/svg",
+                    fill: "none",
+                    viewBox: "0 0 24 24",
+                    stroke: "currentColor"
+                  },
+                  on: {
+                    click: function($event) {
+                      _vm.quantity =
+                        _vm.quantity - 1 == 0 ? 1 : _vm.quantity - 1
+                    }
+                  }
                 },
                 [
-                  _vm._v(
-                    "\n        " +
-                      _vm._s(Object.keys(item)[0].replaceAll("_", " ")) +
-                      "\n      "
-                  )
+                  _c("path", {
+                    attrs: {
+                      "stroke-linecap": "round",
+                      "stroke-linejoin": "round",
+                      "stroke-width": "2",
+                      d: "M18 12H6"
+                    }
+                  })
                 ]
               ),
               _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.quantity,
+                    expression: "quantity"
+                  }
+                ],
+                staticClass:
+                  "w-7 h-8 border text-center text-gray-600 border-primario",
+                attrs: { type: "text" },
+                domProps: { value: _vm.quantity },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.quantity = $event.target.value
+                  }
+                }
+              }),
+              _vm._v(" "),
               _c(
-                "p",
+                "svg",
                 {
-                  staticClass: "text-sm",
-                  class: { "text-right": !(index % 2 == 0) }
+                  staticClass: "w-4 h-4 text-gray-500 cursor-pointer",
+                  attrs: {
+                    xmlns: "http://www.w3.org/2000/svg",
+                    fill: "none",
+                    viewBox: "0 0 24 24",
+                    stroke: "currentColor"
+                  },
+                  on: {
+                    click: function($event) {
+                      _vm.quantity = _vm.quantity + 1
+                    }
+                  }
                 },
                 [
-                  _vm._v(
-                    "\n        " +
-                      _vm._s(item[Object.keys(item)[0]]) +
-                      "\n      "
-                  )
+                  _c("path", {
+                    attrs: {
+                      "stroke-linecap": "round",
+                      "stroke-linejoin": "round",
+                      "stroke-width": "2",
+                      d: "M12 6v6m0 0v6m0-6h6m-6 0H6"
+                    }
+                  })
                 ]
               )
             ]
           )
-        }),
-        0
+        ],
+        2
       ),
       _vm._v(" "),
-      _vm._m(1)
+      _c("div", { staticClass: "h-px w-full bg-blue-50" }),
+      _vm._v(" "),
+      _vm._m(3)
     ],
     1
   )
@@ -10226,6 +10377,26 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-span-2" }, [
+      _c(
+        "span",
+        { staticClass: "text-xs capitalize text-gray-500 font-medium" },
+        [_vm._v("\n        Cantidad\n      ")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "flex items-center" }, [
+      _c("span", { staticClass: "text-sm" }, [_vm._v("Por favor, Selecciona")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c(
       "div",
       {
@@ -10237,14 +10408,16 @@ var staticRenderFns = [
           "div",
           {
             staticClass:
-              "py-2.5 bg-white text-primario border rounded border-primario"
+              "py-2.5 bg-gray-50 text-primario border rounded border-primario"
           },
           [_vm._v("\n      Añadir al carrito\n    ")]
         ),
         _vm._v(" "),
-        _c("div", { staticClass: "py-2.5 bg-primario text-white rounded" }, [
-          _vm._v("Comprar")
-        ])
+        _c(
+          "div",
+          { staticClass: "py-2.5 bg-primario shadow-lg text-white rounded" },
+          [_vm._v("Comprar")]
+        )
       ]
     )
   }
