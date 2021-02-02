@@ -1,9 +1,14 @@
 <template>
-  <div class="flex flex-col w-full space-y-4 bg-gray-50">
-    <Menu></Menu>
+  <div class="flex flex-col h-screen w-full space-y-5 bg-gray-50">
+    <MenuSimple />
     <div class="w-full px-2">
       <splide :options="options">
-        <splide-slide v-for="src in product.images" :key="src" class="relative">
+        <splide-slide
+          v-for="src in product.images"
+          :alt="product.name"
+          :key="src"
+          class="relative"
+        >
           <svg
             @click="clicked = !clicked"
             xmlns="http://www.w3.org/2000/svg"
@@ -37,7 +42,7 @@
         </splide-slide>
       </splide>
     </div>
-    <div class="flex justify-between mx-2">
+    <div class="flex justify-between mx-3">
       <div class="flex flex-col justify-center">
         <span class="text-primario font-medium">$150.000</span>
         <h1 class="">Sporty Sneaker men</h1>
@@ -66,21 +71,36 @@
         </span>
       </div>
     </div>
-    <div class="w-full h-1 bg-white" />
-
-    <div class="w-full grid grid-cols-2 space-x-3 text-center px-3 font-medium">
+    <div class="grid grid-cols-2 mx-4 space-y-3">
+      <div
+        v-for="(item, index) in product.description"
+        :key="index"
+        class="flex flex-col justify-center"
+      >
+        <h3
+          class="text-xs capitalize text-gray-500"
+          :class="{ 'text-right': !(index % 2 == 0) }"
+        >
+          {{ Object.keys(item)[0].replaceAll("_", " ") }}
+        </h3>
+        <p class="text-sm" :class="{ 'text-right': !(index % 2 == 0) }">
+          {{ item[Object.keys(item)[0]] }}
+        </p>
+      </div>
+    </div>
+    <div
+      class="w-full grid grid-cols-2 space-x-3 text-center px-3 font-medium pb-4"
+    >
       <div class="py-2.5 bg-white text-primario border rounded border-primario">
-          Añadir al carrito
+        Añadir al carrito
       </div>
-      <div class="py-2.5 bg-primario text-white rounded">
-          Comprar
-      </div>
+      <div class="py-2.5 bg-primario text-white rounded">Comprar</div>
     </div>
   </div>
 </template>
 
 <script>
-import Menu from "../Menu.vue";
+import MenuSimple from "../MenuSimple.vue";
 import { Splide, SplideSlide } from "@splidejs/vue-splide";
 import "@splidejs/splide/dist/css/themes/splide-default.min.css";
 
@@ -109,6 +129,16 @@ export default {
           "/images/productos/final1.png",
           "/images/productos/final2.jpg",
         ],
+        description: [
+          {
+            motor: "Gasolina",
+          },
+          { potencia: "4 hp" },
+          { masa_operacional: "4kg" },
+          { fuerza_de_impacto: "1400kg" },
+          { golpes_x_minuto: "660-700" },
+          { profundidad_de_compactacion: "0,55mt" },
+        ],
       },
       options: {
         height: 300,
@@ -117,7 +147,7 @@ export default {
     };
   },
   components: {
-    Menu,
+    MenuSimple,
     Splide,
     SplideSlide,
   },
