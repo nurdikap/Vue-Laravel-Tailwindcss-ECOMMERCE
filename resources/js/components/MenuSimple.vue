@@ -1,11 +1,14 @@
 <template>
   <div class="flex items-center justify-around space-x-4 pr-1.5 pl-3 mt-1">
     <svg
+    @click="$router.go(-1)"
+
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
       stroke="currentColor"
-      class="w-6 h-6 text-texto"
+      class="w-6 h-6 text-texto
+      cursor-pointer"
     >
       <path
         stroke-linecap="round"
