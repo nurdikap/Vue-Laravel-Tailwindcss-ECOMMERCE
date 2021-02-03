@@ -1,12 +1,14 @@
 <template>
-  <div class="w-full flex flex-col">
-    <Menu class="bg-white" />
-    <Destacado class="bg-white" />
-    <Division class="my-2" />
-    <Productos />
-    <Division class="my-2" />
-    <Categorias class="md:mb-12" />
+  <div class="w-full flex flex-col max-h-screen overflow-hidden">
+    <div class="flex flex-col overflow-y-scroll mb-10">
+      <Menu class="bg-white" />
+      <Destacado class="bg-white" />
 
+      <Division class="my-2" />
+      <Categorias class="md:mb-12" />
+      <Division class="my-2" />
+      <Productos />
+    </div>
     <BarraNavegacion />
   </div>
 </template>

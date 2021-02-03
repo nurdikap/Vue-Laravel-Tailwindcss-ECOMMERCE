@@ -6408,7 +6408,54 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      svg: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+    };
+  }
+});
 
 /***/ }),
 
@@ -7836,6 +7883,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Productos_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Productos.vue */ "./resources/js/components/Productos.vue");
 /* harmony import */ var _Categorias_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../Categorias.vue */ "./resources/js/components/Categorias.vue");
 /* harmony import */ var _BarraNavegacion_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../BarraNavegacion.vue */ "./resources/js/components/BarraNavegacion.vue");
+//
+//
 //
 //
 //
@@ -9557,140 +9606,209 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "flex w-full flex-col px-4" }, [
-    _c(
-      "div",
-      { staticClass: "flex justify-between" },
-      [
-        _c("h3", { staticClass: "text-enfatizado text-lg" }, [
-          _vm._v("Categorias")
-        ]),
-        _vm._v(" "),
-        _c(
-          "router-link",
-          {
-            staticClass: "text-sm font-light",
-            attrs: { to: { name: "categorias" } }
-          },
-          [_vm._v(" Ver todas ")]
-        )
-      ],
-      1
-    ),
+    _vm._m(0),
     _vm._v(" "),
-    _c("div", { staticClass: "grid grid-cols-3 gap-x-3 mt-2" }, [
+    _c("div", { staticClass: "grid grid-cols-5 mt-2 w-full gap-x-4" }, [
       _c(
         "div",
-        {
-          staticClass:
-            "flex flex-col justify-center items-center bg-blue-50 p-3 rounded-md"
-        },
+        { staticClass: "flex flex-col justify-start items-center p-3" },
         [
-          _c(
-            "svg",
-            {
-              staticClass: "text-primario w-14 h-14",
-              attrs: {
-                xmlns: "http://www.w3.org/2000/svg",
-                fill: "none",
-                viewBox: "0 0 24 24",
-                stroke: "currentColor"
-              }
-            },
-            [
-              _c("path", {
+          _c("div", { staticClass: "bg-blue-50 p-2.5 rounded-full" }, [
+            _c(
+              "svg",
+              {
+                staticClass: "text-primario w-8 h-8",
                 attrs: {
-                  "stroke-linecap": "round",
-                  "stroke-linejoin": "round",
-                  "stroke-width": "1",
-                  d: "M13 10V3L4 14h7v7l9-11h-7z"
+                  xmlns: "http://www.w3.org/2000/svg",
+                  fill: "none",
+                  viewBox: "0 0 24 24",
+                  stroke: "currentColor"
                 }
-              })
-            ]
-          ),
+              },
+              [
+                _c("path", {
+                  attrs: {
+                    "stroke-linecap": "round",
+                    "stroke-linejoin": "round",
+                    "stroke-width": "1",
+                    d: "M13 10V3L4 14h7v7l9-11h-7z"
+                  }
+                })
+              ]
+            )
+          ]),
           _vm._v(" "),
-          _c("h4", { staticClass: "text-center text-lg font-light" }, [
-            _vm._v("Electricos")
-          ])
+          _c(
+            "h4",
+            { staticClass: "text-center text-xs font-gray-500 font-light" },
+            [_vm._v("Electricos")]
+          )
         ]
       ),
       _vm._v(" "),
       _c(
         "div",
-        {
-          staticClass:
-            "flex flex-col justify-center items-center bg-blue-50 p-3 rounded-md"
-        },
+        { staticClass: "flex flex-col justify-start items-center p-3" },
         [
-          _c(
-            "svg",
-            {
-              staticClass: "text-primario w-14 h-14",
-              attrs: {
-                xmlns: "http://www.w3.org/2000/svg",
-                fill: "none",
-                viewBox: "0 0 24 24",
-                stroke: "currentColor"
-              }
-            },
-            [
-              _c("path", {
+          _c("div", { staticClass: "bg-blue-50 p-2.5 rounded-full" }, [
+            _c(
+              "svg",
+              {
+                staticClass: "text-primario w-8 h-8",
                 attrs: {
-                  "stroke-linecap": "round",
-                  "stroke-linejoin": "round",
-                  "stroke-width": "1",
-                  d:
-                    "M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                  xmlns: "http://www.w3.org/2000/svg",
+                  fill: "none",
+                  viewBox: "0 0 24 24",
+                  stroke: "currentColor"
                 }
-              })
-            ]
-          ),
+              },
+              [
+                _c("path", {
+                  attrs: {
+                    "stroke-linecap": "round",
+                    "stroke-linejoin": "round",
+                    "stroke-width": "1",
+                    d:
+                      "M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                  }
+                })
+              ]
+            )
+          ]),
           _vm._v(" "),
-          _c("h4", { staticClass: "text-center text-lg font-light" }, [
-            _vm._v("Agrícola")
-          ])
+          _c(
+            "h4",
+            { staticClass: "text-center text-xs font-gray-500 font-light" },
+            [_vm._v("Agrícola")]
+          )
         ]
       ),
       _vm._v(" "),
       _c(
         "div",
-        {
-          staticClass:
-            "flex flex-col justify-center items-center bg-blue-50 p-3 rounded-md"
-        },
+        { staticClass: "flex flex-col justify-start items-center p-3" },
         [
-          _c(
-            "svg",
-            {
-              staticClass: "text-primario w-14 h-14",
-              attrs: {
-                xmlns: "http://www.w3.org/2000/svg",
-                fill: "none",
-                viewBox: "0 0 24 24",
-                stroke: "currentColor"
-              }
-            },
-            [
-              _c("path", {
+          _c("div", { staticClass: "bg-blue-50 p-2.5 rounded-full" }, [
+            _c(
+              "svg",
+              {
+                staticClass: "text-primario w-8 h-8",
                 attrs: {
-                  "stroke-linecap": "round",
-                  "stroke-linejoin": "round",
-                  "stroke-width": "1",
-                  d:
-                    "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                  xmlns: "http://www.w3.org/2000/svg",
+                  fill: "none",
+                  viewBox: "0 0 24 24",
+                  stroke: "currentColor"
                 }
-              })
-            ]
-          ),
+              },
+              [
+                _c("path", {
+                  attrs: {
+                    "stroke-linecap": "round",
+                    "stroke-linejoin": "round",
+                    "stroke-width": "1",
+                    d: _vm.svg
+                  }
+                })
+              ]
+            )
+          ]),
           _vm._v(" "),
-          _c("h4", { staticClass: "text-center text-lg font-light" }, [
-            _vm._v("Seguridad")
-          ])
+          _c(
+            "h4",
+            { staticClass: "text-center text-xs font-gray-500 font-light" },
+            [_vm._v("\n        Seguridad industrial\n        \n      ")]
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "flex flex-col justify-start items-center p-3" },
+        [
+          _c("div", { staticClass: "bg-blue-50 p-2.5 rounded-full" }, [
+            _c(
+              "svg",
+              {
+                staticClass: "text-primario w-8 h-8",
+                attrs: {
+                  xmlns: "http://www.w3.org/2000/svg",
+                  fill: "none",
+                  viewBox: "0 0 24 24",
+                  stroke: "currentColor"
+                }
+              },
+              [
+                _c("path", {
+                  attrs: {
+                    "stroke-linecap": "round",
+                    "stroke-linejoin": "round",
+                    "stroke-width": "1",
+                    d: "M13 10V3L4 14h7v7l9-11h-7z"
+                  }
+                })
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c(
+            "h4",
+            { staticClass: "text-center text-xs font-gray-500 font-light" },
+            [_vm._v("Electricos")]
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "flex flex-col justify-start items-center p-3" },
+        [
+          _c("div", { staticClass: "bg-blue-50 p-2.5 rounded-full" }, [
+            _c(
+              "svg",
+              {
+                staticClass: "text-primario w-8 h-8",
+                attrs: {
+                  xmlns: "http://www.w3.org/2000/svg",
+                  fill: "none",
+                  viewBox: "0 0 24 24",
+                  stroke: "currentColor"
+                }
+              },
+              [
+                _c("path", {
+                  attrs: {
+                    "stroke-linecap": "round",
+                    "stroke-linejoin": "round",
+                    "stroke-width": "1",
+                    d: "M12 6v6m0 0v6m0-6h6m-6 0H6"
+                  }
+                })
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c(
+            "h4",
+            { staticClass: "text-center text-xs font-gray-500 font-light" },
+            [_vm._v("Ver más")]
+          )
         ]
       )
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "flex justify-between" }, [
+      _c("h3", { staticClass: "text-enfatizado text-lg" }, [
+        _vm._v("Categorias")
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -11822,19 +11940,26 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "w-full flex flex-col" },
+    { staticClass: "w-full flex flex-col max-h-screen overflow-hidden" },
     [
-      _c("Menu", { staticClass: "bg-white" }),
-      _vm._v(" "),
-      _c("Destacado", { staticClass: "bg-white" }),
-      _vm._v(" "),
-      _c("Division", { staticClass: "my-2" }),
-      _vm._v(" "),
-      _c("Productos"),
-      _vm._v(" "),
-      _c("Division", { staticClass: "my-2" }),
-      _vm._v(" "),
-      _c("Categorias", { staticClass: "md:mb-12" }),
+      _c(
+        "div",
+        { staticClass: "flex flex-col overflow-y-scroll mb-10" },
+        [
+          _c("Menu", { staticClass: "bg-white" }),
+          _vm._v(" "),
+          _c("Destacado", { staticClass: "bg-white" }),
+          _vm._v(" "),
+          _c("Division", { staticClass: "my-2" }),
+          _vm._v(" "),
+          _c("Categorias", { staticClass: "md:mb-12" }),
+          _vm._v(" "),
+          _c("Division", { staticClass: "my-2" }),
+          _vm._v(" "),
+          _c("Productos")
+        ],
+        1
+      ),
       _vm._v(" "),
       _c("BarraNavegacion")
     ],
