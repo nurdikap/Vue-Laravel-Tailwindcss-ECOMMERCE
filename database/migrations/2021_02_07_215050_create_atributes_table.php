@@ -15,6 +15,17 @@ class CreateAtributesTable extends Migration
     {
         Schema::create('atributes', function (Blueprint $table) {
             $table->id();
+
+            $table->string('atribute', 100);
+		    $table->integer('variation_id')->unsigned();
+		    
+		
+		    $table->foreign('variation_id')
+		        ->references('id')->on('variations')
+		        ->onDelete('cascade')
+		        ->onUpdate('restrict');
+
+
             $table->timestamps();
         });
     }
