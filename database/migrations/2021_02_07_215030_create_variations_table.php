@@ -15,6 +15,15 @@ class CreateVariationsTable extends Migration
     {
         Schema::create('variations', function (Blueprint $table) {
             $table->id();
+
+            $table->integer('variation');
+		    $table->integer('stock')->unsigned();
+		    $table->integer('sold');
+		    $table->json('images');
+		    $table->integer('price')->unsigned();
+		    $table->integer('final_price');
+
+
             $table->timestamps();
         });
     }

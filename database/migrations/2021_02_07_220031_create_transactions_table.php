@@ -15,6 +15,18 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
+
+            $table->enum('status', ['pending', 'canceled', 'aprobed'])->default('pending');
+		    $table->integer('amount');
+		    $table->string('provider', 200);
+		    $table->integer('order_id')->unsigned();
+		    		
+		    $table->foreign('order_id')
+		        ->references('id')->on('orders')
+		        ->onDelete('cascade')
+		        ->onUpdate('restrict');
+
+
             $table->timestamps();
         });
     }

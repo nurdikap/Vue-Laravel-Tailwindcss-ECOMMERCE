@@ -15,6 +15,18 @@ class CreateShippingsTable extends Migration
     {
         Schema::create('shippings', function (Blueprint $table) {
             $table->id();
+
+            $table->string('name', 50);
+		    $table->integer('price')->unsigned()->default(0);
+		    $table->integer('transporter_id')->unsigned();
+		    
+		
+		    $table->foreign('transporter_id')
+		        ->references('id')->on('transporters')
+		        ->onDelete('cascade')
+		        ->onUpdate('restrict');
+
+
             $table->timestamps();
         });
     }

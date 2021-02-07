@@ -15,6 +15,13 @@ class CreateTransportersTable extends Migration
     {
         Schema::create('transporters', function (Blueprint $table) {
             $table->id();
+
+            $table->string('name', 150);
+		    $table->string('phone_number', 20);
+		    $table->string('email', 200);
+		    $table->string('identification_number', 20);
+
+            
             $table->timestamps();
         });
     }
