@@ -16,13 +16,13 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
 
-            $table->integer('client_id')->unsigned();
+            $table->unsignedBigInteger('client_id');
 		    $table->enum('payment_method', ['efectivo', 'pasarela']);
-		    $table->integer('shipping_id')->unsigned();
+		    $table->unsignedBigInteger('shipping_id');
 		    $table->integer('final_price')->unsigned();
 		    $table->integer('price')->unsigned();
 		    $table->integer('discount')->unsigned();
-		    $table->integer('coupon_id')->unsigned();
+		    $table->unsignedBigInteger('coupon_id');
 		    		
 		    $table->foreign('client_id')
 		        ->references('id')->on('clients')

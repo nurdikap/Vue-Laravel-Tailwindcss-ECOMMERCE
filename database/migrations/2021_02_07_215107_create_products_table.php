@@ -21,7 +21,7 @@ class CreateProductsTable extends Migration
 		    $table->integer('discount');
 		    $table->longText('description');
 		    $table->string('reference', 100);
-		    $table->integer('subcategory_id')->unsigned();
+		    $table->unsignedBigInteger('subcategory_id');
 		    $table->string('short_description', 300);
 		    $table->json('images');
 		    $table->enum('product_type', ['simple', 'variable'])->default('simple');

@@ -19,7 +19,7 @@ class CreateTransactionsTable extends Migration
             $table->enum('status', ['pending', 'canceled', 'aprobed'])->default('pending');
 		    $table->integer('amount');
 		    $table->string('provider', 200);
-		    $table->integer('order_id')->unsigned();
+		    $table->unsignedBigInteger('order_id');
 		    		
 		    $table->foreign('order_id')
 		        ->references('id')->on('orders')

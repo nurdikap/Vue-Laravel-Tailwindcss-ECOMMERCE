@@ -16,8 +16,8 @@ class CreateAtributeProductTable extends Migration
         Schema::create('atribute_product', function (Blueprint $table) {
             $table->id();
 
-            $table->integer('product_id')->unsigned();
-		    $table->integer('atribute_id')->unsigned();
+            $table->unsignedBigInteger('product_id');
+		    $table->unsignedBigInteger('atribute_id');
 		    
 		
 		    $table->foreign('atribute_id')

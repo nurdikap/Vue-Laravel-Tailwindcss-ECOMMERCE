@@ -18,7 +18,7 @@ class CreateShippingsTable extends Migration
 
             $table->string('name', 50);
 		    $table->integer('price')->unsigned()->default(0);
-		    $table->integer('transporter_id')->unsigned();
+		    $table->unsignedBigInteger('transporter_id');
 		    
 		
 		    $table->foreign('transporter_id')

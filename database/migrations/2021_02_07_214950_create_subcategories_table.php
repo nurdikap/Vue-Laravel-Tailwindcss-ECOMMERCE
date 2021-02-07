@@ -18,7 +18,7 @@ class CreateSubcategoriesTable extends Migration
 
             $table->string('name', 100);
 		    $table->json('image');
-		    $table->integer('category_id')->unsigned();
+		    $table->unsignedBigInteger('category_id');
 		    $table->text('description');
 		    
 		
