@@ -23,6 +23,11 @@ class CreateVariationsTable extends Migration
 		    $table->integer('price')->unsigned();
 		    $table->integer('final_price');
 
+            $table->unsignedBigInteger('atribute_id');
+		    $table->foreign('atribute_id')
+		        ->references('id')->on('atributes')
+		        ->onDelete('cascade')
+		        ->onUpdate('restrict');
 
             $table->timestamps();
         });

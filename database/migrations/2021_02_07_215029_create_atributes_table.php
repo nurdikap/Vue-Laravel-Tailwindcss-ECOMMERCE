@@ -17,14 +17,6 @@ class CreateAtributesTable extends Migration
             $table->id();
 
             $table->string('atribute', 100);
-		    $table->unsignedBigInteger('variation_id');
-		    
-		
-		    $table->foreign('variation_id')
-		        ->references('id')->on('variations')
-		        ->onDelete('cascade')
-		        ->onUpdate('restrict');
-
 
             $table->timestamps();
         });
