@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Variation extends Model
 {
-    public function products()
+    public function orders()
     {
-        return $this->belongsToMany(Product::class);
+        return $this->belongsToMany(Order::class);
     }
     public function atribute()
     {
