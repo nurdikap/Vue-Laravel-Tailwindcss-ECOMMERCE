@@ -24,7 +24,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view ('layouts.admin');
+        return view('layouts.admin');
     }
 
     /**
@@ -35,23 +35,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        if ($request->hasFile('image')) {
-            $imagenes = [];
-            
-            foreach ($request->file('image') as $aux) {
-                $image = $aux;
-                
-                $image_original_name = $image->getClientOriginalName();
-                $auxx = $image_original_name;
-                
-                $image_changed_name = str_replace(' ', '-', $image_original_name);
-                $image_destination_name = time() . '_' . $image_changed_name;
-                $path = 'images/productos';
-                $image->move($path, $image_destination_name);
-                array_push($imagenes, $path.'/'.$image_destination_name);
-            }
-            
-        }
+        $imagenes = $this->saveImage($request);
         $product = new Product();
         $product->name = $request->name;
         $product->description = $request->description;
@@ -59,13 +43,33 @@ class ProductController extends Controller
         $product->price = $request->price;
         $product->discount = $request->discount;
         $product->reference = $request->reference;
-        $product->look_for_stock = $request->look_for_stock;
+        $product->look_for_stock = $request->look_for_stock ? 1 : 0;
         $product->stock = $request->stock;
         $product->product_type = $request->product_type;
+        $product->subcategory_id = 1;
         $product->images = json_encode($imagenes);
         $product->save();
+    }
+    public function saveImage($request)
+    {
+        if ($request->hasFile('image')) {
+            $imagenes = [];
 
-        
+            foreach ($request->file('image') as $aux) {
+                $image = $aux;
+
+                $image_original_name = $image->getClientOriginalName();
+
+                $image_changed_name = str_replace(' ', '-', $image_original_name);
+                $image_destination_name = time() . '_' . $image_changed_name;
+                $path = 'images/productos';
+                $image->move($path, $image_destination_name);
+                array_push($imagenes, $path . '/' . $image_destination_name);
+            }
+            return $imagenes;
+        } else {
+            return false;
+        }
     }
 
     /**
