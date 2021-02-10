@@ -23,6 +23,7 @@ class CreateProductsTable extends Migration
 		    $table->string('reference', 100);
 		    $table->unsignedBigInteger('subcategory_id');
 		    $table->string('short_description', 300);
+            $table->boolean('look_for_stock');
 		    $table->json('images');
 		    $table->enum('product_type', ['simple', 'variable'])->default('simple');
 		    $table->integer('stock');

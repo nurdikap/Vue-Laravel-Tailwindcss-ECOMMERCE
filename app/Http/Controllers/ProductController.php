@@ -14,7 +14,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        return Product::all();
     }
 
     /**
@@ -24,7 +24,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        return view ('layouts.admin');
     }
 
     /**
@@ -35,7 +35,24 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if ($request->hasFile('image')) {
+            $imagenes = [];
+            
+            foreach ($request->file('image') as $aux) {
+                $image = $aux;
+                
+                $image_original_name = $image->getClientOriginalName();
+                $auxx = $image_original_name;
+                
+                $image_changed_name = str_replace(' ', '-', $image_original_name);
+                $image_destination_name = time() . '_' . $image_changed_name;
+                $path = 'images/productos';
+                $image->move($path, $image_destination_name);
+                array_push($imagenes, $path.'/'.$image_destination_name);
+            }
+            return $auxx;
+        }
+        return ('nomen');
     }
 
     /**
