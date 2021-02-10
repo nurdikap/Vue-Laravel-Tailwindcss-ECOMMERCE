@@ -50,9 +50,22 @@ class ProductController extends Controller
                 $image->move($path, $image_destination_name);
                 array_push($imagenes, $path.'/'.$image_destination_name);
             }
-            return $auxx;
+            
         }
-        return ('nomen');
+        $product = new Product();
+        $product->name = $request->name;
+        $product->description = $request->description;
+        $product->short_description = $request->short_description;
+        $product->price = $request->price;
+        $product->discount = $request->discount;
+        $product->reference = $request->reference;
+        $product->look_for_stock = $request->look_for_stock;
+        $product->stock = $request->stock;
+        $product->product_type = $request->product_type;
+        $product->images = json_encode($imagenes);
+        $product->save();
+
+        
     }
 
     /**
