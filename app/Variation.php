@@ -6,12 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Variation extends Model
 {
-    public function orders()
-    {
-        return $this->belongsToMany(Order::class);
+    public function product(){
+        return $this->belongsTo(Product::class);
     }
-    public function atribute()
-    {
-        return $this->belongsTo(Atribute::class);
+    public function attributes(){
+        return $this->belongsToMany(Attribute::class);
+    }
+    public function orders(){
+        return $this->belongsToMany(Order::class);
+
     }
 }

@@ -6,13 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    public function atributes()
-    {
-        return $this->belongsToMany(Atribute::class);
-    }
+   
     public function orders()
     {
         return $this->belongsToMany(Order::class);
+    }
+    public function variations()
+    {
+        return $this->hasMany(Variation::class);
     }
     
     public function subcategory()
