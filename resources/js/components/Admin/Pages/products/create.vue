@@ -48,9 +48,10 @@
               id="subcategory"
               v-model="selectedSubcategory"
             >
-              <option v-if="areSubcategories">
+              <option v-if="areSubcategories" :selected="true" disabled>
                 No se han encontrado subcagorias
               </option>
+
               <option
                 v-for="subcategory in subcategories"
                 :key="subcategory.name"
@@ -272,10 +273,10 @@
     <div class="flex flex-col" v-if="!showProperties">
       <input type="file" multiple @change="photosChange" />
     </div>
-    <modal name="modalError" scrollable width="90%"
-      ><div class="text-justify space-y-2">
-        <p class="font-medium text-center">¡Ha ocurrido un error!</p>
-        <div v-html="errorMessage" class="px-2 space-y-2"></div>
+    <modal name="modalError" adaptive height="auto" classes="bg-red-200"
+      ><div class="space-y-4 flex flex-col justify-center w-full h-full py-3">
+        <p class="font-medium text-center">¡Ha ocurrido un error! 😯</p>
+        <div v-html="errorMessage" class="px-2 my-1"></div>
       </div>
     </modal>
 
@@ -302,9 +303,9 @@ export default {
           console.log(response.data.length);
           $this.subcategories = response.data;
           $this.selectedSubcategory =
-            response.data.length == 0
+            $this.subcategories.length == 0
               ? "No se han encontrado subcagorias"
-              : $this.selectedSubcategory;
+              : $this.subcategories[0].id;
         })
         .catch(function (error) {
           console.log(error.message);
@@ -319,6 +320,7 @@ export default {
         .then(function (response) {
           console.log(response.data);
           $this.categories = response.data;
+          $this.selectedCategory = $this.categories[0].id;
         })
         .catch(function (error) {
           console.log(error.message);
@@ -359,7 +361,7 @@ export default {
               mensaje += `<li> ${element}</li>`;
             });
           }
-          mensaje += '</ul>';
+          mensaje += "</ul>";
 
           $this.$modal.show("modalError");
           $this.errorMessage = mensaje;

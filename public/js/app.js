@@ -8356,6 +8356,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -8370,7 +8371,7 @@ __webpack_require__.r(__webpack_exports__);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("".concat(url, "categories/").concat($this.selectedCategory, "/getSubcategories")).then(function (response) {
         console.log(response.data.length);
         $this.subcategories = response.data;
-        $this.selectedSubcategory = response.data.length == 0 ? "No se han encontrado subcagorias" : $this.selectedSubcategory;
+        $this.selectedSubcategory = $this.subcategories.length == 0 ? "No se han encontrado subcagorias" : $this.subcategories[0].id;
       })["catch"](function (error) {
         console.log(error.message);
       });
@@ -8381,6 +8382,7 @@ __webpack_require__.r(__webpack_exports__);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(url + "categories").then(function (response) {
         console.log(response.data);
         $this.categories = response.data;
+        $this.selectedCategory = $this.categories[0].id;
       })["catch"](function (error) {
         console.log(error.message);
       });
@@ -8422,7 +8424,7 @@ __webpack_require__.r(__webpack_exports__);
           });
         }
 
-        mensaje += '</ul>';
+        mensaje += "</ul>";
         $this.$modal.show("modalError");
         $this.errorMessage = mensaje;
       });
@@ -11895,11 +11897,18 @@ var render = function() {
                     },
                     [
                       _vm.areSubcategories
-                        ? _c("option", [
-                            _vm._v(
-                              "\n              No se han encontrado subcagorias\n            "
-                            )
-                          ])
+                        ? _c(
+                            "option",
+                            {
+                              attrs: { disabled: "" },
+                              domProps: { selected: true }
+                            },
+                            [
+                              _vm._v(
+                                "\n              No se han encontrado subcagorias\n            "
+                              )
+                            ]
+                          )
                         : _vm._e(),
                       _vm._v(" "),
                       _vm._l(_vm.subcategories, function(subcategory) {
@@ -12499,18 +12508,32 @@ var render = function() {
       _vm._v(" "),
       _c(
         "modal",
-        { attrs: { name: "modalError", scrollable: "", width: "90%" } },
+        {
+          attrs: {
+            name: "modalError",
+            adaptive: "",
+            height: "auto",
+            classes: "bg-red-200"
+          }
+        },
         [
-          _c("div", { staticClass: "text-justify space-y-2" }, [
-            _c("p", { staticClass: "font-medium text-center" }, [
-              _vm._v("¡Ha ocurrido un error!")
-            ]),
-            _vm._v(" "),
-            _c("div", {
-              staticClass: "px-2 space-y-2",
-              domProps: { innerHTML: _vm._s(_vm.errorMessage) }
-            })
-          ])
+          _c(
+            "div",
+            {
+              staticClass:
+                "space-y-4 flex flex-col justify-center w-full h-full py-3"
+            },
+            [
+              _c("p", { staticClass: "font-medium text-center" }, [
+                _vm._v("¡Ha ocurrido un error! 😯")
+              ]),
+              _vm._v(" "),
+              _c("div", {
+                staticClass: "px-2 my-1",
+                domProps: { innerHTML: _vm._s(_vm.errorMessage) }
+              })
+            ]
+          )
         ]
       ),
       _vm._v(" "),
