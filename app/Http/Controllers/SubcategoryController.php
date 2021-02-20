@@ -14,7 +14,7 @@ class SubcategoryController extends Controller
      */
     public function index()
     {
-        //
+        return response(Subcategory::all());
     }
 
     /**

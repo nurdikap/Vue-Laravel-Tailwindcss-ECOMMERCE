@@ -14,7 +14,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        return response (Category::all());
     }
 
     /**
@@ -46,7 +46,11 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        //
+        return response($category);
+    }
+    public function getSubcategories(Category $category)
+    {
+        return response($category->subcategories);
     }
 
     /**

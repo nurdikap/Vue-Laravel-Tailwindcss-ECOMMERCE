@@ -35,6 +35,20 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        $validatedData = $request->validate([
+            'name' => 'required|string',
+            'description' => 'required|string',
+            'short_description' => 'required|string',
+            'price' => 'required|numeric',
+            'discount' => 'required|numeric|lte:price',
+            'reference' => 'required|string',
+            'look_for_stock' => 'required|boolean',
+            'stock' => 'nullable|numeric',
+            'product_type' => 'required|string',
+            'subcategory_id' => 'required|numeric',
+            'images' => 'nullable',
+        ]);
+
         $imagenes = $this->saveImage($request);
         $product = new Product();
         $product->name = $request->name;
@@ -43,12 +57,13 @@ class ProductController extends Controller
         $product->price = $request->price;
         $product->discount = $request->discount;
         $product->reference = $request->reference;
-        $product->look_for_stock = $request->look_for_stock ? 1 : 0;
+        $product->look_for_stock = $request->look_for_stock == 'true' ? 1 : 0;
         $product->stock = $request->stock;
         $product->product_type = $request->product_type;
-        $product->subcategory_id = 1;
+        $product->subcategory_id = $request->subcategory_id;
         $product->images = json_encode($imagenes);
         $product->save();
+        return response($product, 201);
     }
     public function saveImage($request)
     {

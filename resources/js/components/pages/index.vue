@@ -1,6 +1,6 @@
 <template>
-  <div class="w-full flex flex-col max-h-screen overflow-hidden">
-    <div class="flex flex-col overflow-y-scroll mb-10">
+  <div class="w-full flex flex-col max-h-screen">
+    <div class="flex flex-col mb-10 ">
       <Menu class="bg-white" />
       <Destacado class="bg-white" />
 

@@ -2,6 +2,8 @@
 
 window.Vue = require('vue');
 import router from './routes';
+import VModal from 'vue-js-modal'
+Vue.use(VModal);
 
 
 Vue.component('index', require('./components/pages/index.vue').default);

@@ -9,6 +9,9 @@ Route::group(['prefix' => 'admin'], function () {
         return view('test');
     });
     Route::resource('products', 'ProductController');
+    Route::resource('categories', 'CategoryController');
+    Route::resource('subcategories', 'SubcategoryController');
+   Route::get('categories/{category}/getSubcategories', 'CategoryController@getSubcategories');
 
 });
 

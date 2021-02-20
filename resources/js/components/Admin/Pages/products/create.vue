@@ -13,6 +13,55 @@
           placeholder="Nombre"
         />
       </div>
+      <div class="grid grid-cols-2">
+        <div
+          class="grid grid-rows-2 md:grid-cols-2 md:grid-rows-1 items-center"
+        >
+          <div><label for="category"> Selecciona una categoría</label></div>
+          <div class="flex justify-start md:justify-center md:pr-2">
+            <select
+              name="category"
+              class="py-1 w-5/6 md:w-full border-2 border-blue-50 text-gray-500"
+              id="subcategory"
+              v-model="selectedCategory"
+              placeholder="hola"
+              @change="updateSubcategories()"
+            >
+              <option
+                v-for="category in categories"
+                :key="category.name"
+                :value="category.id"
+              >
+                {{ category.name }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div
+          class="grid grid-rows-2 md:grid-cols-2 md:grid-rows-1 items-center"
+        >
+          <div><label for="subcategory"> Subcategoría </label></div>
+          <div class="flex justify-start md:justify-center">
+            <select
+              name="subcategory"
+              class="py-1 w-5/6 md:w-full border-2 border-blue-50 text-gray-500"
+              id="subcategory"
+              v-model="selectedSubcategory"
+            >
+              <option v-if="areSubcategories">
+                No se han encontrado subcagorias
+              </option>
+              <option
+                v-for="subcategory in subcategories"
+                :key="subcategory.name"
+                :value="subcategory.id"
+              >
+                {{ subcategory.name }}
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
       <div class="grid grid-cols-2 items-center">
         <label for="short_description">Descripción corta</label>
         <input
@@ -75,7 +124,7 @@
               type="radio"
               name="look_for_stock"
               id="look_for_stock_yes"
-              :value="true"
+              :value="1"
             />
             <label for="look_for_stock_yes">Sí</label>
           </div>
@@ -85,7 +134,7 @@
               type="radio"
               name="look_for_stock"
               id="look_for_stock_no"
-              :value="false"
+              :value="0"
             />
             <label for="look_for_stock_no">No</label>
           </div>
@@ -223,6 +272,13 @@
     <div class="flex flex-col" v-if="!showProperties">
       <input type="file" multiple @change="photosChange" />
     </div>
+    <modal name="modalError" scrollable width="90%"
+      ><div class="text-justify space-y-2">
+        <p class="font-medium text-center">¡Ha ocurrido un error!</p>
+        <div v-html="errorMessage" class="px-2 space-y-2"></div>
+      </div>
+    </modal>
+
     <button @click="sendData()">Guardar producto</button>
   </div>
 </template>
@@ -231,15 +287,47 @@
 import axios from "axios";
 import Division from "../../../OspinaTrap/Division";
 export default {
-  computed: {
-    showProperties: function () {
-      return this.product_type == "simple" ? false : true;
-    },
+  mounted() {
+    this.getCategories();
   },
+
   methods: {
+    updateSubcategories: function () {
+      let url = "http://127.0.0.1:8000/admin/";
+      let $this = this;
+      console.log($this.selectedCategory);
+      axios
+        .get(`${url}categories/${$this.selectedCategory}/getSubcategories`)
+        .then(function (response) {
+          console.log(response.data.length);
+          $this.subcategories = response.data;
+          $this.selectedSubcategory =
+            response.data.length == 0
+              ? "No se han encontrado subcagorias"
+              : $this.selectedSubcategory;
+        })
+        .catch(function (error) {
+          console.log(error.message);
+        });
+    },
+
+    getCategories: function () {
+      let url = "http://127.0.0.1:8000/admin/";
+      let $this = this;
+      axios
+        .get(url + "categories")
+        .then(function (response) {
+          console.log(response.data);
+          $this.categories = response.data;
+        })
+        .catch(function (error) {
+          console.log(error.message);
+        });
+    },
     sendData: function () {
       let url = "http://127.0.0.1:8000/admin/products";
       let form = new FormData();
+      let $this = this;
       form.append("attributes", JSON.stringify(this.attributes));
       form.append("name", this.name);
       form.append("short_description", this.short_description);
@@ -250,17 +338,31 @@ export default {
       form.append("look_for_stock", this.look_for_stock);
       form.append("stock", this.stock);
       form.append("product_type", this.product_type);
+      form.append("subcategory_id", this.selectedSubcategory);
 
       for (let i = 0; i < this.images.length; i++) {
         form.append("image[]", this.images[i]);
       }
-
+      let mensaje = "<ul>";
       axios
         .post(url, form, {
           headers: { "Content-Type": "multipart/form-data" },
         })
         .then(function (response) {
           console.log(response);
+        })
+        .catch((error) => {
+          let respuesta = error.response.data.errors;
+          for (error in respuesta) {
+            respuesta[error].forEach(function (element) {
+              console.log(element);
+              mensaje += `<li> ${element}</li>`;
+            });
+          }
+          mensaje += '</ul>';
+
+          $this.$modal.show("modalError");
+          $this.errorMessage = mensaje;
         });
     },
     photosChange: function (event) {
@@ -300,20 +402,33 @@ export default {
   },
   data() {
     return {
+      errorMessage: "",
+      categories: [""],
+      selectedCategory: "",
+      subcategories: "",
+      selectedSubcategory: "No se han encontrado subcagorias",
       images: [],
-      name:'',
-      short_description:'',
-      description:'',
-      price:'',
-      discount:'',
-      reference:'',
-      stock:0,
+      name: "",
+      short_description: "",
+      description: "",
+      price: "",
+      discount: "",
+      reference: "",
+      stock: 0,
       backgroundColors: ["red", "blue", "green", "purple", "yellow"],
       attributes: [],
       currentAttribute: "",
       product_type: "simple",
-      look_for_stock: true,
+      look_for_stock: 1,
     };
+  },
+  computed: {
+    areSubcategories: function () {
+      return this.subcategories.length == 0 ? true : false;
+    },
+    showProperties: function () {
+      return this.product_type == "simple" ? false : true;
+    },
   },
   components: {
     Division,
