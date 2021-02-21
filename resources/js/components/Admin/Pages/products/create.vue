@@ -13,7 +13,7 @@
           placeholder="Nombre"
         />
       </div>
-      <div class="grid grid-cols-2">
+      <div class="grid grid-cols-2 space-x-2">
         <div
           class="grid grid-rows-2 md:grid-cols-2 md:grid-rows-1 items-center"
         >
@@ -273,6 +273,7 @@
     <div class="flex flex-col" v-if="!showProperties">
       <input type="file" multiple @change="photosChange" />
     </div>
+
     <modal name="modalError" adaptive height="auto" classes="bg-red-200"
       ><div class="space-y-4 flex flex-col justify-center w-full h-full py-3">
         <p class="font-medium text-center">¡Ha ocurrido un error! 😯</p>

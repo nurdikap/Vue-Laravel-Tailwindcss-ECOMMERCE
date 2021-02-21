@@ -11,6 +11,11 @@ export default new Router({
             component: require("./components/Admin/Pages/products/create.vue").default
         },
         {
+            path: "/admin/attributes/create",
+            name: "adminAttributesCreate",
+            component: require("./components/Admin/Pages/attributes/create.vue").default
+        },
+        {
             path: "/",
             name: "home",
             component: require("./components/pages/index.vue").default

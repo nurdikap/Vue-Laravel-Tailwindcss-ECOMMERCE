@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
+
 use App\Attribute;
 use Illuminate\Http\Request;
 
@@ -14,7 +16,40 @@ class AttributeController extends Controller
      */
     public function index()
     {
-        //
+
+        $attributes = DB::table('attributes')->select('name')->groupBy('name')->get();
+        $final_attributes = $this->convertAttributesToArray($attributes);
+        return $final_attributes;
+    }
+    public function convertAttributesToArray($attributes)
+    {
+
+        if (!$attributes) return;
+        $final_attributes = array();
+        foreach ($attributes as $value) {
+            $variations = DB::table('attributes')->select('value','id')->where('name', $value->name)->get();
+            $final_variation = [];
+            foreach ($variations as $variation) {
+                $auxiliary_variation = [
+                    'value' => $variation->value,
+                    'id' => $variation->id
+                ];
+                array_push($final_variation, $auxiliary_variation);
+            }
+            $object = (object)[
+                'name' => $value->name,
+                'variations' => $final_variation,
+                'color' => $this->getRandomColor(),
+                
+            ];
+            array_push($final_attributes, $object);
+        }
+
+        return $final_attributes;
+    }
+    public function getRandomColor()
+    {
+        return array_rand(array_flip(['red', 'blue', 'green', 'purple', 'yellow']));
     }
 
     /**
@@ -24,7 +59,7 @@ class AttributeController extends Controller
      */
     public function create()
     {
-        //
+        return view('layouts.admin');
     }
 
     /**
@@ -35,7 +70,18 @@ class AttributeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+    
+        foreach ($request->input('attributes') as $attribute) {
+            $name = $attribute['name'];
+            foreach ($attribute['variations'] as $variation) {
+                $newAttribute = Attribute::updateOrCreate(
+                    ['name'=>$name , 'value' => $variation]
+                );
+               
+            }
+        }
+       
+        return response($request);
     }
 
     /**
