@@ -188,85 +188,61 @@
       <Division height="h-px" />
 
       <p>
-        <strong>Seccion de Atributos del producto</strong>: Debe añadir las
-        propiedades y cada una de sus variaciones de la siguiente manera
+        <strong>Seccion de variaciones del producto</strong>: Debe añadir las
+        propiedades y los valores de estos atributos.
       </p>
 
-      <div class="grid grid-cols-2 px-1 space-x-3 items-center">
-        <span> Añadir nuevo atributo </span>
-        <input
-          type="text"
-          placeholder="atributo"
-          v-model="currentAttribute"
-          class="p-1 text-center shadow rounded-lg bg-blue-200 outline-none"
-          @keyup.enter="addAttribute(currentAttribute)"
-        />
-      </div>
-
-      <div
-        v-for="(attribute, index) in attributes"
-        :key="index"
-        class="grid grid-cols-6 items-center justify-between space-x-1"
-      >
-        <p class="text-base col-span-2">
-          {{ attributes[index].name }}
-        </p>
-
-        <div
-          class="border flex flex-col rounded-xl p-2 col-span-3"
-          :class="`bg-${attributes[index].color}-100`"
-        >
-          <input
-            type="text"
-            class="bg-transparent outline-none"
-            v-model="attributes[index].aux"
-            @keyup.enter="addVariationToAttribute(index, attributes[index].aux)"
-          />
-
-          <div
-            v-for="(variation, variationIndex) in attributes[index].variations"
-            :key="variationIndex"
-          >
-            <div class="flex justify-between px-1 my-1">
-              <span>
-                {{ variation }}
-              </span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                class="w-4 h-4"
-                :class="`text-${attributes[index].color}-400`"
-                @click="removeVariation(index, variationIndex)"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                />
-              </svg>
-            </div>
-          </div>
-        </div>
-
+      <div class="grid grid-cols-3">
         <div class="flex justify-center items-center">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            class="w-4 h-4 text-primario"
-            @click="removeAttribute(index)"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-            />
-          </svg>
+          <label for="attributes"> Selecciona el atributo </label>
+        </div>
+        <div class="col-span-2 flex space-x-4 items-center">
+          <div>
+            <select name="attributes" id="attributes" v-model="selectedIndex">
+              <option
+                v-for="(attribute, attributeIndex) in attributes"
+                :key="attributeIndex"
+                :value="attributeIndex"
+              >
+                {{ attribute.name }}
+              </option>
+            </select>
+          </div>
+
+          <div>
+            <select
+              name="attributes"
+              id="attributes"
+              v-model="selectedVariationIndex"
+            >
+              >
+              <option
+                v-for="(variation, variationIndex) in attributes[selectedIndex]
+                  .variations"
+                :key="variationIndex"
+                :value="variationIndex"
+              >
+                {{ variation.value }}
+              </option>
+            </select>
+          </div>
+
+          <div @click="addVariation()" class="bg-red-200">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              class="w-4 h-4"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+          </div>
         </div>
       </div>
     </div>
@@ -291,9 +267,96 @@ import Division from "../../../OspinaTrap/Division";
 export default {
   mounted() {
     this.getCategories();
+    this.getAttributes();
   },
 
   methods: {
+    addVariation: function () {
+      let $this = this;
+      let attributeExist = false;
+      let attributeIndex = 0;
+      let variationExist = false;
+      let variationItem = 0;
+      if (this.selectedAttributes.length != 0) {
+        //Starts verification
+        this.selectedAttributes.forEach(function (item, indexAttribute) {
+          console.log("entre");
+          if (
+            item.name == $this.attributes[$this.selectedIndex].name &&
+            !attributeExist
+          ) {
+            console.log("Item Exits");
+            attributeExist = true;
+            attributeIndex = indexAttribute;
+            item.variations.forEach(function (variationItem, indexVariation) {
+              if (
+                variationItem.id ==
+                  $this.attributes[$this.selectedIndex].variations[
+                    $this.selectedVariationIndex
+                  ].id &&
+                !variationExist
+              ) {
+                console.log("Variation exists!");
+                variationExist = true;
+                variationItem = indexVariation;
+              } else {
+                console.log("Variation does not exists!!");
+              }
+            });
+          } else {
+            console.log("Item does not exists");
+          }
+        });
+        // End verification
+        console.log(
+          `VE: Atributo: ${attributeExist},variacion: ${variationExist}`
+        );
+
+         if (attributeExist && !variationExist) {
+        $this.selectedAttributes[attributeIndex].variations.push(
+          $this.attributes[$this.selectedIndex].variations[
+            $this.selectedVariationIndex
+          ]
+        );
+      }
+      if(!attributeExist){
+        let auxObject = {
+          name: $this.attributes[$this.selectedIndex].name,
+          variations: [
+            $this.attributes[$this.selectedIndex].variations[
+              $this.selectedVariationIndex
+            ],
+          ],
+        };
+        this.selectedAttributes.push(auxObject);
+      }
+      
+      } else {
+        let auxObject = {
+          name: $this.attributes[$this.selectedIndex].name,
+          variations: [
+            $this.attributes[$this.selectedIndex].variations[
+              $this.selectedVariationIndex
+            ],
+          ],
+        };
+        this.selectedAttributes.push(auxObject);
+      }
+
+     
+
+      console.log(this.selectedAttributes);
+    },
+    getAttributes: function () {
+      let url = "http://127.0.0.1:8000/admin/attributes";
+      let $this = this;
+
+      axios.get(url).then(function (response) {
+        console.log(response.data);
+        $this.attributes = response.data;
+      });
+    },
+
     updateSubcategories: function () {
       let url = "http://127.0.0.1:8000/admin/";
       let $this = this;
@@ -387,21 +450,6 @@ export default {
       let random = Math.floor(Math.random() * this.backgroundColors.length);
       return this.backgroundColors[random];
     },
-    addAttribute: function (attribute) {
-      let objeto = {
-        name: attribute,
-        aux: "",
-        color: this.getRandomBackground(),
-        variations: [],
-      };
-      this.attributes.push(objeto);
-      this.currentAttribute = "";
-    },
-    addVariationToAttribute: function (index, variation) {
-      this.attributes[index].variations.push(variation);
-      this.attributes[index].aux = "";
-      console.log(this.attributes[index].variations);
-    },
   },
   data() {
     return {
@@ -419,9 +467,14 @@ export default {
       reference: "",
       stock: 0,
       backgroundColors: ["red", "blue", "green", "purple", "yellow"],
-      attributes: [],
+      attributes: [
+        { color: "Cargando...", variations: [{ value: "Cargando variacion" }] },
+      ],
+      selectedAttributes: [],
+      selectedIndex: 0,
+      selectedVariationIndex: 0,
       currentAttribute: "",
-      product_type: "simple",
+      product_type: "variable",
       look_for_stock: 1,
     };
   },
