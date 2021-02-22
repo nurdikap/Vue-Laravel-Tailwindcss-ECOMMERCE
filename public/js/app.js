@@ -8174,9 +8174,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
@@ -8195,16 +8192,22 @@ __webpack_require__.r(__webpack_exports__);
       var url = "http://127.0.0.1:8000/admin/attributes";
       var $this = this;
       var data = {
-        attributes: this.attributes
+        attributes: this.attributes,
+        removedIndex: this.removedIndex
       };
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(url, data).then(function (response) {
         console.log(response);
       });
     },
     removeAttribute: function removeAttribute(attributeIndex) {
+      var $this = this;
+      this.attributes[attributeIndex].variations.forEach(function (variation) {
+        $this.removedIndex.push(variation.id);
+      });
       this.attributes.splice(attributeIndex, 1);
     },
     removeVariation: function removeVariation(attributeIndex, variationIndex) {
+      this.removedIndex.push(this.attributes[attributeIndex].variations[variationIndex].id);
       this.attributes[attributeIndex].variations.splice(variationIndex, 1);
     },
     getRandomBackground: function getRandomBackground() {
@@ -8222,8 +8225,13 @@ __webpack_require__.r(__webpack_exports__);
       this.currentAttribute = "";
     },
     addVariationToAttribute: function addVariationToAttribute(index, variation) {
-      this.attributes[index].variations.push(variation);
-      this.attributes[index].aux = "";
+      var auxiliarVariation = {
+        id: null,
+        value: variation
+      };
+      this.attributes[index].variations.push(auxiliarVariation);
+      this.attributes[index].aux = ""; //Clear auxiliar variation (input)
+
       console.log(this.attributes[index].variations);
     }
   },
@@ -8232,16 +8240,9 @@ __webpack_require__.r(__webpack_exports__);
       errorMessage: "",
       backgroundColors: ["red", "blue", "green", "purple", "yellow"],
       attributes: [],
-      currentAttribute: ""
+      currentAttribute: "",
+      removedIndex: []
     };
-  },
-  computed: {
-    areSubcategories: function areSubcategories() {
-      return this.subcategories.length == 0 ? true : false;
-    },
-    showProperties: function showProperties() {
-      return this.product_type == "simple" ? false : true;
-    }
   }
 });
 
@@ -12070,7 +12071,7 @@ var render = function() {
                                 _c("span", [
                                   _vm._v(
                                     "\n                " +
-                                      _vm._s(variation) +
+                                      _vm._s(variation.value) +
                                       "\n              "
                                   )
                                 ]),
@@ -12158,15 +12159,6 @@ var render = function() {
             ],
             2
           ),
-          _vm._v(" "),
-          !_vm.showProperties
-            ? _c("div", { staticClass: "flex flex-col" }, [
-                _c("input", {
-                  attrs: { type: "file", multiple: "" },
-                  on: { change: _vm.photosChange }
-                })
-              ])
-            : _vm._e(),
           _vm._v(" "),
           _c(
             "modal",

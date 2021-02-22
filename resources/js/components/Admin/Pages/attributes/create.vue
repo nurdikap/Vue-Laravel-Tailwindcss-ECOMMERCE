@@ -48,7 +48,7 @@
             >
               <div class="flex justify-between px-1 my-1">
                 <span>
-                  {{ variation }}
+                  {{ variation.value }}
                 </span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -89,9 +89,6 @@
           </div>
         </div>
       </div>
-      <div class="flex flex-col" v-if="!showProperties">
-        <input type="file" multiple @change="photosChange" />
-      </div>
 
       <modal name="modalError" adaptive height="auto" classes="bg-red-200"
         ><div class="space-y-4 flex flex-col justify-center w-full h-full py-3">
@@ -126,6 +123,7 @@ export default {
       let $this = this;
       let data = {
         attributes: this.attributes,
+        removedIndex: this.removedIndex,
       };
       axios.post(url, data).then(function (response) {
         console.log(response);
@@ -133,9 +131,18 @@ export default {
     },
 
     removeAttribute: function (attributeIndex) {
+      let $this = this;
+      this.attributes[attributeIndex].variations.forEach(function (variation){
+      $this.removedIndex.push(variation.id);
+      });
+
       this.attributes.splice(attributeIndex, 1);
     },
     removeVariation: function (attributeIndex, variationIndex) {
+      this.removedIndex.push(
+        this.attributes[attributeIndex].variations[variationIndex].id
+      );
+
       this.attributes[attributeIndex].variations.splice(variationIndex, 1);
     },
     getRandomBackground: function () {
@@ -153,8 +160,12 @@ export default {
       this.currentAttribute = "";
     },
     addVariationToAttribute: function (index, variation) {
-      this.attributes[index].variations.push(variation);
-      this.attributes[index].aux = "";
+      let auxiliarVariation = {
+        id: null,
+        value: variation,
+      };
+      this.attributes[index].variations.push(auxiliarVariation);
+      this.attributes[index].aux = ""; //Clear auxiliar variation (input)
       console.log(this.attributes[index].variations);
     },
   },
@@ -164,16 +175,10 @@ export default {
       backgroundColors: ["red", "blue", "green", "purple", "yellow"],
       attributes: [],
       currentAttribute: "",
+      removedIndex: [],
     };
   },
-  computed: {
-    areSubcategories: function () {
-      return this.subcategories.length == 0 ? true : false;
-    },
-    showProperties: function () {
-      return this.product_type == "simple" ? false : true;
-    },
-  },
+ 
 };
 </script>
 

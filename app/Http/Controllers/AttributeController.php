@@ -27,7 +27,7 @@ class AttributeController extends Controller
         if (!$attributes) return;
         $final_attributes = array();
         foreach ($attributes as $value) {
-            $variations = DB::table('attributes')->select('value','id')->where('name', $value->name)->get();
+            $variations = DB::table('attributes')->select('value', 'id')->where('name', $value->name)->get();
             $final_variation = [];
             foreach ($variations as $variation) {
                 $auxiliary_variation = [
@@ -40,7 +40,7 @@ class AttributeController extends Controller
                 'name' => $value->name,
                 'variations' => $final_variation,
                 'color' => $this->getRandomColor(),
-                
+
             ];
             array_push($final_attributes, $object);
         }
@@ -49,6 +49,7 @@ class AttributeController extends Controller
     }
     public function getRandomColor()
     {
+
         return array_rand(array_flip(['red', 'blue', 'green', 'purple', 'yellow']));
     }
 
@@ -70,18 +71,31 @@ class AttributeController extends Controller
      */
     public function store(Request $request)
     {
-    
-        foreach ($request->input('attributes') as $attribute) {
+        $this->deleteRemovedKeys($request->removedIndex);
+        $this->keepOldItemsCreateNewOnes($request->input('attributes'));
+
+        return response($request);
+    }
+    public function deleteRemovedKeys(array $removedIndex){
+        if (!$removedIndex) return false;
+        foreach ($removedIndex as $index){
+            Attribute::destroy($index);
+        }
+        return true;
+    }
+    public function keepOldItemsCreateNewOnes(array $attributes){
+        if (!$attributes) return false;
+        foreach ($attributes as $attribute) {
             $name = $attribute['name'];
             foreach ($attribute['variations'] as $variation) {
-                $newAttribute = Attribute::updateOrCreate(
-                    ['name'=>$name , 'value' => $variation]
+
+                $newAttribute = Attribute::firstOrCreate(
+                    ['id' => $variation['id']],
+                    ['name' => $name, 'value' => $variation['value']]
                 );
-               
             }
         }
-       
-        return response($request);
+        return true;
     }
 
     /**
