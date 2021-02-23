@@ -40,7 +40,7 @@
         <div
           class="grid grid-rows-2 md:grid-cols-2 md:grid-rows-1 items-center"
         >
-          <div><label for="subcategory"> Subcategoría </label></div>
+          <div><label for="subcategory">Selecciona una subcategoría </label></div>
           <div class="flex justify-start md:justify-center">
             <select
               name="subcategory"
@@ -384,7 +384,9 @@ export default {
         .then(function (response) {
           console.log(response.data);
           $this.categories = response.data;
+          console.log('holaaaaaaa');
           $this.selectedCategory = $this.categories[0].id;
+          $this.updateSubcategories();
         })
         .catch(function (error) {
           console.log(error.message);

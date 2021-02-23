@@ -8610,7 +8610,9 @@ __webpack_require__.r(__webpack_exports__);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(url + "categories").then(function (response) {
         console.log(response.data);
         $this.categories = response.data;
+        console.log('holaaaaaaa');
         $this.selectedCategory = $this.categories[0].id;
+        $this.updateSubcategories();
       })["catch"](function (error) {
         console.log(error.message);
       });
@@ -13049,7 +13051,9 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", [
-      _c("label", { attrs: { for: "subcategory" } }, [_vm._v(" Subcategoría ")])
+      _c("label", { attrs: { for: "subcategory" } }, [
+        _vm._v("Selecciona una subcategoría ")
+      ])
     ])
   },
   function() {
