@@ -8523,6 +8523,49 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -8531,6 +8574,16 @@ __webpack_require__.r(__webpack_exports__);
     this.getAttributes();
   },
   methods: {
+    getAllVariations: function getAllVariations($variationIndex) {
+      var response = [];
+      var $this = this;
+      this.selectedAttributes.forEach(function (attribute) {
+        attribute.variations.forEach(function (variation) {
+          response.push(variation);
+        });
+      });
+      console.log(response);
+    },
     addVariation: function addVariation() {
       var $this = this;
       var attributeExist = false;
@@ -8582,6 +8635,7 @@ __webpack_require__.r(__webpack_exports__);
         this.selectedAttributes.push(_auxObject);
       }
 
+      $this.getAllVariations();
       console.log(this.selectedAttributes);
     },
     getAttributes: function getAttributes() {
@@ -8610,7 +8664,6 @@ __webpack_require__.r(__webpack_exports__);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(url + "categories").then(function (response) {
         console.log(response.data);
         $this.categories = response.data;
-        console.log('holaaaaaaa');
         $this.selectedCategory = $this.categories[0].id;
         $this.updateSubcategories();
       })["catch"](function (error) {
@@ -8702,6 +8755,7 @@ __webpack_require__.r(__webpack_exports__);
         }]
       }],
       selectedAttributes: [],
+      finalSelectedAttributes: [],
       selectedIndex: 0,
       selectedVariationIndex: 0,
       currentAttribute: "",
@@ -12821,160 +12875,251 @@ var render = function() {
               _vm._v(" "),
               _vm._m(2),
               _vm._v(" "),
-              _c("div", { staticClass: "grid grid-cols-3" }, [
+              _c("div", { staticClass: "flex justify-around items-center" }, [
                 _vm._m(3),
                 _vm._v(" "),
                 _c(
                   "div",
-                  { staticClass: "col-span-2 flex space-x-4 items-center" },
+                  {
+                    on: {
+                      click: function($event) {
+                        return _vm.addVariation()
+                      }
+                    }
+                  },
                   [
-                    _c("div", [
-                      _c(
-                        "select",
-                        {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.selectedIndex,
-                              expression: "selectedIndex"
-                            }
-                          ],
-                          attrs: { name: "attributes", id: "attributes" },
-                          on: {
-                            change: function($event) {
-                              var $$selectedVal = Array.prototype.filter
-                                .call($event.target.options, function(o) {
-                                  return o.selected
-                                })
-                                .map(function(o) {
-                                  var val = "_value" in o ? o._value : o.value
-                                  return val
-                                })
-                              _vm.selectedIndex = $event.target.multiple
-                                ? $$selectedVal
-                                : $$selectedVal[0]
-                            }
-                          }
-                        },
-                        _vm._l(_vm.attributes, function(
-                          attribute,
-                          attributeIndex
-                        ) {
-                          return _c(
-                            "option",
-                            {
-                              key: attributeIndex,
-                              domProps: { value: attributeIndex }
-                            },
-                            [
-                              _vm._v(
-                                "\n              " +
-                                  _vm._s(attribute.name) +
-                                  "\n            "
-                              )
-                            ]
-                          )
-                        }),
-                        0
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("div", [
-                      _c(
-                        "select",
-                        {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.selectedVariationIndex,
-                              expression: "selectedVariationIndex"
-                            }
-                          ],
-                          attrs: { name: "attributes", id: "attributes" },
-                          on: {
-                            change: function($event) {
-                              var $$selectedVal = Array.prototype.filter
-                                .call($event.target.options, function(o) {
-                                  return o.selected
-                                })
-                                .map(function(o) {
-                                  var val = "_value" in o ? o._value : o.value
-                                  return val
-                                })
-                              _vm.selectedVariationIndex = $event.target
-                                .multiple
-                                ? $$selectedVal
-                                : $$selectedVal[0]
-                            }
-                          }
-                        },
-                        [
-                          _vm._v("\n            >\n            "),
-                          _vm._l(
-                            _vm.attributes[_vm.selectedIndex].variations,
-                            function(variation, variationIndex) {
-                              return _c(
-                                "option",
-                                {
-                                  key: variationIndex,
-                                  domProps: { value: variationIndex }
-                                },
-                                [
-                                  _vm._v(
-                                    "\n              " +
-                                      _vm._s(variation.value) +
-                                      "\n            "
-                                  )
-                                ]
-                              )
-                            }
-                          )
-                        ],
-                        2
-                      )
-                    ]),
-                    _vm._v(" "),
                     _c(
-                      "div",
+                      "svg",
                       {
-                        staticClass: "bg-red-200",
-                        on: {
-                          click: function($event) {
-                            return _vm.addVariation()
-                          }
+                        staticClass: "w-4 h-4",
+                        attrs: {
+                          xmlns: "http://www.w3.org/2000/svg",
+                          fill: "none",
+                          viewBox: "0 0 24 24",
+                          stroke: "currentColor"
                         }
                       },
                       [
-                        _c(
-                          "svg",
-                          {
-                            staticClass: "w-4 h-4",
-                            attrs: {
-                              xmlns: "http://www.w3.org/2000/svg",
-                              fill: "none",
-                              viewBox: "0 0 24 24",
-                              stroke: "currentColor"
-                            }
-                          },
-                          [
-                            _c("path", {
-                              attrs: {
-                                "stroke-linecap": "round",
-                                "stroke-linejoin": "round",
-                                "stroke-width": "2",
-                                d:
-                                  "M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
-                              }
-                            })
-                          ]
-                        )
+                        _c("path", {
+                          attrs: {
+                            "stroke-linecap": "round",
+                            "stroke-linejoin": "round",
+                            "stroke-width": "2",
+                            d:
+                              "M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                          }
+                        })
                       ]
                     )
                   ]
                 )
-              ])
+              ]),
+              _vm._v(" "),
+              _c("Division", { attrs: { height: "h-1" } }),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "grid grid-cols-3 space-y-2 w-full overflow-hidden",
+                  attrs: { id: "variacionIndividual" }
+                },
+                [
+                  _vm._m(4),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "col-span-2 flex space-x-4 items-center justify-between",
+                      attrs: { id: "Agarra selects y boton" }
+                    },
+                    [
+                      _c("div", [
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.selectedIndex,
+                                expression: "selectedIndex"
+                              }
+                            ],
+                            attrs: { name: "attributes", id: "attributes" },
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.selectedIndex = $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              }
+                            }
+                          },
+                          _vm._l(_vm.attributes, function(
+                            attribute,
+                            attributeIndex
+                          ) {
+                            return _c(
+                              "option",
+                              {
+                                key: attributeIndex,
+                                domProps: { value: attributeIndex }
+                              },
+                              [
+                                _vm._v(
+                                  "\n              " +
+                                    _vm._s(attribute.name) +
+                                    "\n            "
+                                )
+                              ]
+                            )
+                          }),
+                          0
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", [
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.selectedVariationIndex,
+                                expression: "selectedVariationIndex"
+                              }
+                            ],
+                            attrs: { name: "attributes", id: "attributes" },
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.selectedVariationIndex = $event.target
+                                  .multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              }
+                            }
+                          },
+                          [
+                            _vm._v("\n            >\n            "),
+                            _vm._l(
+                              _vm.attributes[_vm.selectedIndex].variations,
+                              function(variation, variationIndex) {
+                                return _c(
+                                  "option",
+                                  {
+                                    key: variationIndex,
+                                    domProps: { value: variationIndex }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n              " +
+                                        _vm._s(variation.value) +
+                                        "\n            "
+                                    )
+                                  ]
+                                )
+                              }
+                            )
+                          ],
+                          2
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          on: {
+                            click: function($event) {
+                              return _vm.addVariation()
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "svg",
+                            {
+                              staticClass: "w-4 h-4",
+                              attrs: {
+                                xmlns: "http://www.w3.org/2000/svg",
+                                fill: "none",
+                                viewBox: "0 0 24 24",
+                                stroke: "currentColor"
+                              }
+                            },
+                            [
+                              _c("path", {
+                                attrs: {
+                                  "stroke-linecap": "round",
+                                  "stroke-linejoin": "round",
+                                  "stroke-width": "2",
+                                  d:
+                                    "M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                                }
+                              })
+                            ]
+                          )
+                        ]
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _vm._l(_vm.selectedAttributes, function(attribute, index) {
+                    return _c(
+                      "div",
+                      {
+                        key: index,
+                        staticClass:
+                          "col-span-3 flex items-center space-x-2 w-full overflow-auto py-1"
+                      },
+                      [
+                        _c("div", { staticClass: "font-semibold" }, [
+                          _vm._v("#1")
+                        ]),
+                        _vm._v(" "),
+                        _vm._l(attribute.variations, function(
+                          attributeVariation
+                        ) {
+                          return _c(
+                            "div",
+                            {
+                              key: attributeVariation.id,
+                              staticClass:
+                                "pt-1 px-2 shadow text-center font-medium"
+                            },
+                            [
+                              _vm._v(
+                                "\n          " +
+                                  _vm._s(attributeVariation.value) +
+                                  "\n        "
+                              )
+                            ]
+                          )
+                        })
+                      ],
+                      2
+                    )
+                  })
+                ],
+                2
+              )
             ],
             1
           )
@@ -13065,6 +13210,14 @@ var staticRenderFns = [
       _vm._v(
         ": Debe añadir las\n      propiedades y los valores de estos atributos.\n    "
       )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "flex-1 space-y-4" }, [
+      _c("span", [_vm._v(" Añadir nueva variación ")])
     ])
   },
   function() {

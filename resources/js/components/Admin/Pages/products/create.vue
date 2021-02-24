@@ -40,7 +40,9 @@
         <div
           class="grid grid-rows-2 md:grid-cols-2 md:grid-rows-1 items-center"
         >
-          <div><label for="subcategory">Selecciona una subcategoría </label></div>
+          <div>
+            <label for="subcategory">Selecciona una subcategoría </label>
+          </div>
           <div class="flex justify-start md:justify-center">
             <select
               name="subcategory"
@@ -191,12 +193,39 @@
         <strong>Seccion de variaciones del producto</strong>: Debe añadir las
         propiedades y los valores de estos atributos.
       </p>
-
-      <div class="grid grid-cols-3">
+      <div class="flex justify-around items-center">
+        <div class="flex-1 space-y-4">
+          <span> Añadir nueva variación </span>
+        </div>
+        <div @click="addVariation()">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            class="w-4 h-4"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
+          </svg>
+        </div>
+      </div>
+      <Division height="h-1" />
+      <div
+        id="variacionIndividual"
+        class="grid grid-cols-3 space-y-2 w-full overflow-hidden"
+      >
         <div class="flex justify-center items-center">
           <label for="attributes"> Selecciona el atributo </label>
         </div>
-        <div class="col-span-2 flex space-x-4 items-center">
+        <div
+          id="Agarra selects y boton"
+          class="col-span-2 flex space-x-4 items-center justify-between"
+        >
           <div>
             <select name="attributes" id="attributes" v-model="selectedIndex">
               <option
@@ -227,7 +256,7 @@
             </select>
           </div>
 
-          <div @click="addVariation()" class="bg-red-200">
+          <div @click="addVariation()">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -242,6 +271,20 @@
                 d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
               />
             </svg>
+          </div>
+        </div>
+        <div
+          v-for="(attribute, index) in selectedAttributes"
+          :key="index"
+          class="col-span-3 flex items-center space-x-2 w-full overflow-auto py-1"
+        >
+          <div class="font-semibold">#1</div>
+          <div
+            class="pt-1 px-2 shadow text-center font-medium"
+            v-for="attributeVariation in attribute.variations"
+            :key="attributeVariation.id"
+          >
+            {{ attributeVariation.value }}
           </div>
         </div>
       </div>
@@ -271,6 +314,14 @@ export default {
   },
 
   methods: {
+    getAllVariations: function ($variationIndex) {
+      let response = [];
+      let $this = this;
+      this.selectedAttributes.forEach(function (attribute) {
+        attribute.variations.forEach(function (variation) {response.push(variation)});
+      });
+      console.log(response);
+    },
     addVariation: function () {
       let $this = this;
       let attributeExist = false;
@@ -312,25 +363,24 @@ export default {
           `VE: Atributo: ${attributeExist},variacion: ${variationExist}`
         );
 
-         if (attributeExist && !variationExist) {
-        $this.selectedAttributes[attributeIndex].variations.push(
-          $this.attributes[$this.selectedIndex].variations[
-            $this.selectedVariationIndex
-          ]
-        );
-      }
-      if(!attributeExist){
-        let auxObject = {
-          name: $this.attributes[$this.selectedIndex].name,
-          variations: [
+        if (attributeExist && !variationExist) {
+          $this.selectedAttributes[attributeIndex].variations.push(
             $this.attributes[$this.selectedIndex].variations[
               $this.selectedVariationIndex
+            ]
+          );
+        }
+        if (!attributeExist) {
+          let auxObject = {
+            name: $this.attributes[$this.selectedIndex].name,
+            variations: [
+              $this.attributes[$this.selectedIndex].variations[
+                $this.selectedVariationIndex
+              ],
             ],
-          ],
-        };
-        this.selectedAttributes.push(auxObject);
-      }
-      
+          };
+          this.selectedAttributes.push(auxObject);
+        }
       } else {
         let auxObject = {
           name: $this.attributes[$this.selectedIndex].name,
@@ -342,9 +392,7 @@ export default {
         };
         this.selectedAttributes.push(auxObject);
       }
-
-     
-
+      $this.getAllVariations();
       console.log(this.selectedAttributes);
     },
     getAttributes: function () {
@@ -384,7 +432,6 @@ export default {
         .then(function (response) {
           console.log(response.data);
           $this.categories = response.data;
-          console.log('holaaaaaaa');
           $this.selectedCategory = $this.categories[0].id;
           $this.updateSubcategories();
         })
@@ -473,6 +520,7 @@ export default {
         { color: "Cargando...", variations: [{ value: "Cargando variacion" }] },
       ],
       selectedAttributes: [],
+      finalSelectedAttributes: [],
       selectedIndex: 0,
       selectedVariationIndex: 0,
       currentAttribute: "",
