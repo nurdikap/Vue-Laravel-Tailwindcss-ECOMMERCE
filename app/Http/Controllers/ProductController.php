@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Product;
+use App\Variation;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -35,6 +36,49 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validateProduct($request);
+        $imagenes = $this->saveImagesFromRequests($request);
+        
+        $product = new Product();
+        $product->name = $request->name;
+        $product->description = $request->description;
+        $product->short_description = $request->short_description;
+        $product->price = $request->price;
+        $product->discount = $request->discount;
+        $product->reference = $request->reference;
+        $product->look_for_stock = $request->look_for_stock == 'true' ? 1 : 0;
+        $product->stock = $request->stock;
+        $product->sold = 0;
+        $product->product_type = $request->product_type;
+        $product->subcategory_id = $request->subcategory_id;
+        $product->images = json_encode($imagenes);
+        $product->save();
+
+        //Lets create the variations for the product
+
+        foreach (json_decode($request->input('variations')) as $variation) {
+            $db_variation = new Variation();
+            $db_variation->name = $request->name;
+            $db_variation->price = $request->price;
+            $db_variation->discount = $request->discount;
+            $db_variation->look_for_stock = $request->look_for_stock == 'true' ? 1 : 0;
+            $db_variation->stock = $request->stock;
+            $db_variation->sold = 0;
+            $db_variation->reference = $request->reference;
+            $db_variation->images = json_encode($imagenes);
+            $db_variation->product_id = $product->id;
+            $db_variation->save();
+            $db_variation->reference = $request->reference . '-' . $db_variation->id;
+            $db_variation->save();
+
+            foreach ($variation as $attribute) {
+                $db_variation->attributes()->attach(json_decode($attribute->id));
+            }
+
+        }
+        return $product;
+    }
+    public function validateProduct($request){
         $validatedData = $request->validate([
             'name' => 'required|string',
             'description' => 'required|string',
@@ -48,24 +92,8 @@ class ProductController extends Controller
             'subcategory_id' => 'required|numeric',
             'images' => 'nullable',
         ]);
-
-        $imagenes = $this->saveImage($request);
-        $product = new Product();
-        $product->name = $request->name;
-        $product->description = $request->description;
-        $product->short_description = $request->short_description;
-        $product->price = $request->price;
-        $product->discount = $request->discount;
-        $product->reference = $request->reference;
-        $product->look_for_stock = $request->look_for_stock == 'true' ? 1 : 0;
-        $product->stock = $request->stock;
-        $product->product_type = $request->product_type;
-        $product->subcategory_id = $request->subcategory_id;
-        $product->images = json_encode($imagenes);
-        $product->save();
-        return response($product, 201);
     }
-    public function saveImage($request)
+    public function saveImagesFromRequests($request)
     {
         if ($request->hasFile('image')) {
             $imagenes = [];

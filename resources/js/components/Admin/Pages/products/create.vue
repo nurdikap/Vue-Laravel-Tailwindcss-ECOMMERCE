@@ -277,13 +277,30 @@
         <div
           v-for="(variations, varationIndex) in variationGroups"
           :key="varationIndex"
-          class="col-span-3 flex items-center space-x-2 w-full overflow-auto py-1"
+          class="flex items-center space-x-2 space-y-1 w-full overflow-auto py-1"
         >
+          <div class="pointer" @click="removeVariationGroup(varationIndex)">
+            <svg
+              class="w-3.5 h-3.5 text-blue-400"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+              />
+            </svg>
+          </div>
           <div class="font-semibold">#{{ varationIndex }}</div>
           <div
-            class="pt-1 px-2 shadow text-center font-medium"
-            v-for="variation in variations"
+            class="py-1 px-2 shadow text-center font-medium cursor-pointer"
+            v-for="(variation, indexOfVariation) in variations"
             :key="variation.id"
+            @click="removeVariationFromGroup(varationIndex, indexOfVariation)"
           >
             {{ variation.value }}
           </div>
@@ -315,6 +332,11 @@ export default {
   },
 
   methods: {
+    // Method for maging variations
+    createNewVariationGroup: function () {
+      this.variationGroups.push([]);
+    },
+
     addVariationToVariationArray: function (indexOfVariationGroup) {
       let $this = this;
       let actualArray = this.variationGroups[indexOfVariationGroup];
@@ -341,10 +363,14 @@ export default {
       }
     },
 
-    createNewVariationGroup: function () { 
-      this.variationGroups.push([]);
+    removeVariationFromGroup: function (indexOfGroup, indexOfVariation) {
+      this.variationGroups[indexOfGroup].splice(indexOfVariation, 1);
     },
-   
+    removeVariationGroup: function (indexOfGroup) {
+      this.variationGroups.splice(indexOfGroup, 1);
+    },
+    
+
     getAllVariations: function ($variationIndex) {
       let response = [];
       let $this = this;
@@ -354,7 +380,7 @@ export default {
         });
       });
     },
-  
+    // Methods for attributes
     getAttributes: function () {
       let url = "http://127.0.0.1:8000/admin/attributes";
       let $this = this;
@@ -411,6 +437,7 @@ export default {
       form.append("stock", this.stock);
       form.append("product_type", this.product_type);
       form.append("subcategory_id", this.selectedSubcategory);
+      form.append("variations", JSON.stringify(this.variationGroups));
 
       for (let i = 0; i < this.images.length; i++) {
         form.append("image[]", this.images[i]);
@@ -442,7 +469,6 @@ export default {
       for (let i = 0; i < event.target.files.length; i++) {
         this.images.push(imagenes[i]);
       }
-
     },
     removeAttribute: function (attributeIndex) {
       this.attributes.splice(attributeIndex, 1);
@@ -474,8 +500,8 @@ export default {
       attributes: [
         { color: "Cargando...", variations: [{ value: "Cargando variacion" }] },
       ],
-  
-      variationGroups: [[]],
+
+      variationGroups: [],
       selectedRealVariationIndex: 0,
       selectedIndex: 0,
       selectedVariationIndex: 0,

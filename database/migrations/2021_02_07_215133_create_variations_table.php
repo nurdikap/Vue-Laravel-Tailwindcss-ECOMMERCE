@@ -15,6 +15,23 @@ class CreateVariationsTable extends Migration
     {
         Schema::create('variations', function (Blueprint $table) {
             $table->id();
+
+
+            $table->string('name', 100);
+
+            $table->string('price', 100);
+            $table->integer('discount');
+
+
+            $table->string('reference', 100);
+            $table->unsignedBigInteger('product_id');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+            $table->boolean('look_for_stock');
+            $table->json('images');
+            $table->integer('stock');
+            $table->integer('sold');
+
+
             $table->timestamps();
         });
     }

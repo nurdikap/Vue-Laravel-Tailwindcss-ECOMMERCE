@@ -27,7 +27,8 @@ class CreateProductsTable extends Migration
 		    $table->json('images');
 		    $table->enum('product_type', ['simple', 'variable'])->default('simple');
 		    $table->integer('stock');
-		    
+            $table->integer('sold');
+
 		
 		    $table->foreign('subcategory_id')
 		        ->references('id')->on('subcategories')
