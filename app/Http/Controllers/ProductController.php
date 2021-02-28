@@ -15,7 +15,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return Product::all();
+        return Product::with('variations')->get();
     }
 
     /**
@@ -36,9 +36,46 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validateProduct($request);
-        $imagenes = $this->saveImagesFromRequests($request);
         
+        $this->validateProduct($request);
+        $product = $this->createProductFromRequest($request);
+        
+        //Lets create the variations for the product
+
+        foreach (json_decode($request->input('variations')) as $variation) {
+            $db_variation = $this->createVariationFromRequest($request,$product);
+            // Attach All Atributes to the current variation 
+            foreach ($variation as $attribute) {
+                $db_variation->attributes()->attach(json_decode($attribute->id));
+            }
+
+        }
+        return response($product->id);
+    }
+
+    public function createVariationFromRequest($request,$product){
+        $db_variation = new Variation();
+            $db_variation->name = $request->name;
+            $db_variation->price = $request->price;
+            $db_variation->description = $request->description;
+            $db_variation->short_description = $request->short_description;
+            $db_variation->discount = $request->discount;
+            $db_variation->look_for_stock = $request->look_for_stock == 'true' ? 1 : 0;
+            $db_variation->stock = $request->stock;
+            $db_variation->sold = 0;
+            $db_variation->reference = $request->reference;
+            $db_variation->images = $product->images;
+            $db_variation->product_id = $product->id;
+            $db_variation->save();
+            $db_variation->reference = $request->reference . '-' . $db_variation->id;
+            $db_variation->save();
+            return $db_variation;
+
+    }
+    public function createProductFromRequest($request)
+    {
+        $imagenes = $this->saveImagesFromRequest($request);
+
         $product = new Product();
         $product->name = $request->name;
         $product->description = $request->description;
@@ -53,47 +90,9 @@ class ProductController extends Controller
         $product->subcategory_id = $request->subcategory_id;
         $product->images = json_encode($imagenes);
         $product->save();
-
-        //Lets create the variations for the product
-
-        foreach (json_decode($request->input('variations')) as $variation) {
-            $db_variation = new Variation();
-            $db_variation->name = $request->name;
-            $db_variation->price = $request->price;
-            $db_variation->discount = $request->discount;
-            $db_variation->look_for_stock = $request->look_for_stock == 'true' ? 1 : 0;
-            $db_variation->stock = $request->stock;
-            $db_variation->sold = 0;
-            $db_variation->reference = $request->reference;
-            $db_variation->images = json_encode($imagenes);
-            $db_variation->product_id = $product->id;
-            $db_variation->save();
-            $db_variation->reference = $request->reference . '-' . $db_variation->id;
-            $db_variation->save();
-
-            foreach ($variation as $attribute) {
-                $db_variation->attributes()->attach(json_decode($attribute->id));
-            }
-
-        }
         return $product;
     }
-    public function validateProduct($request){
-        $validatedData = $request->validate([
-            'name' => 'required|string',
-            'description' => 'required|string',
-            'short_description' => 'required|string',
-            'price' => 'required|numeric',
-            'discount' => 'required|numeric|lte:price',
-            'reference' => 'required|string',
-            'look_for_stock' => 'required|boolean',
-            'stock' => 'nullable|numeric',
-            'product_type' => 'required|string',
-            'subcategory_id' => 'required|numeric',
-            'images' => 'nullable',
-        ]);
-    }
-    public function saveImagesFromRequests($request)
+    public function saveImagesFromRequest($request)
     {
         if ($request->hasFile('image')) {
             $imagenes = [];
@@ -114,6 +113,23 @@ class ProductController extends Controller
             return false;
         }
     }
+
+    public function validateProduct($request){
+        $validatedData = $request->validate([
+            'name' => 'required|string',
+            'description' => 'required|string',
+            'short_description' => 'required|string',
+            'price' => 'required|numeric',
+            'discount' => 'required|numeric|lte:price',
+            'reference' => 'required|string',
+            'look_for_stock' => 'required|boolean',
+            'stock' => 'nullable|numeric',
+            'product_type' => 'required|string',
+            'subcategory_id' => 'required|numeric',
+            'images' => 'nullable',
+        ]);
+    }
+  
 
     /**
      * Display the specified resource.

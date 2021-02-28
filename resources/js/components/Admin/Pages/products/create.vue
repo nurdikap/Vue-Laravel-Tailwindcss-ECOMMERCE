@@ -318,6 +318,13 @@
       </div>
     </modal>
 
+    <modal name="modalExito" adaptive height="auto" classes="bg-red-200"
+      ><div class="space-y-4 flex flex-col justify-center w-full h-full py-3">
+        <p class="font-medium text-center">¡Producto creado con éxito! 🎆</p>
+        <div v-html="confirmationMensaje" class="px-2 my-1"></div>
+      </div>
+    </modal>
+
     <button @click="sendData()">Guardar producto</button>
   </div>
 </template>
@@ -369,7 +376,6 @@ export default {
     removeVariationGroup: function (indexOfGroup) {
       this.variationGroups.splice(indexOfGroup, 1);
     },
-    
 
     getAllVariations: function ($variationIndex) {
       let response = [];
@@ -448,6 +454,9 @@ export default {
           headers: { "Content-Type": "multipart/form-data" },
         })
         .then(function (response) {
+          $this.confirmationMensaje =
+            "Se ha creado exitosamente el producto con ID: " + response.data;
+          $this.$modal.show("modalExito");
           console.log(response);
         })
         .catch((error) => {
@@ -484,6 +493,7 @@ export default {
   data() {
     return {
       errorMessage: "",
+      confirmationMensaje: "",
       categories: [""],
       selectedCategory: "",
       subcategories: "",

@@ -11,6 +11,16 @@ export default new Router({
             component: require("./components/Admin/Pages/products/create.vue").default
         },
         {
+            path: "/admin/variations",
+            name: "adminVariations",
+            component: require("./components/Admin/Pages/variations/index.vue").default
+        },
+        {
+            path: "/admin/variations/:variation/edit",
+            name: "adminVariationsEdit",
+            component: require("./components/Admin/Pages/variations/edit.vue").default
+        },
+        {
             path: "/admin/attributes/create",
             name: "adminAttributesCreate",
             component: require("./components/Admin/Pages/attributes/create.vue").default

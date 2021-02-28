@@ -21,7 +21,8 @@ class CreateVariationsTable extends Migration
 
             $table->string('price', 100);
             $table->integer('discount');
-
+            $table->longText('description');
+            $table->string('short_description', 300);
 
             $table->string('reference', 100);
             $table->unsignedBigInteger('product_id');

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Product;
 use App\Variation;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,18 @@ class VariationController extends Controller
      */
     public function index()
     {
-        //
+        return view('layouts.admin');
+
+    }
+    public function getVariations(){
+       
+        return Variation::with('attributes')->orderBy('name')->get();
+
+    }
+    public function getVariation(Variation $variation){
+        
+        
+        return $variation;
     }
 
     /**
@@ -57,7 +69,9 @@ class VariationController extends Controller
      */
     public function edit(Variation $variation)
     {
-        //
+
+        return view('layouts.admin');
+
     }
 
     /**

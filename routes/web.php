@@ -12,9 +12,11 @@ Route::group(['prefix' => 'admin'], function () {
     Route::resource('categories', 'CategoryController');
     Route::resource('subcategories', 'SubcategoryController');
     Route::resource('attributes', 'AttributeController');
+    Route::resource('variations', 'VariationController');
+    Route::get('getVariations', 'VariationController@getVariations');
+    Route::get('getVariation/{variation}', 'VariationController@getVariation');
 
-   Route::get('categories/{category}/getSubcategories', 'CategoryController@getSubcategories');
-
+    Route::get('categories/{category}/getSubcategories', 'CategoryController@getSubcategories');
 });
 
 Route::get('/', function () {
