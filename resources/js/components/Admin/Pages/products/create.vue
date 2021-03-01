@@ -1,11 +1,11 @@
 <template>
-  <div class="w-full h-screen flex flex-col text-sm space-y-4 px-3 py-3">
+  <div class="w-full h-screen flex flex-col text-sm space-y-2 px-3 py-2">
     <h1 class="text-xl font-medium">Subida de productos</h1>
     <div class="flex flex-col space-y-4">
-      <div class="grid grid-cols-2 items-center">
+      <div class="grid grid-cols-1 items-center">
         <label for="name">Nombre</label>
         <input
-          class="py-2 px-1"
+          class="p-2 border focus:border-blue-400 text-gray-500 border-gray-200 shadow rounded"
           type="text"
           id="name"
           name="name"
@@ -13,62 +13,54 @@
           placeholder="Nombre"
         />
       </div>
-      <div class="grid grid-cols-2 space-x-2">
-        <div
-          class="grid grid-rows-2 md:grid-cols-2 md:grid-rows-1 items-center"
-        >
+      <div class="grid grid-cols-1 space-y-2">
+        <div class="grid">
           <div><label for="category"> Selecciona una categoría</label></div>
-          <div class="flex justify-start md:justify-center md:pr-2">
-            <select
-              name="category"
-              class="py-1 w-5/6 md:w-full border-2 border-blue-50 text-gray-500"
-              id="subcategory"
-              v-model="selectedCategory"
-              placeholder="hola"
-              @change="updateSubcategories()"
+          <select
+            name="category"
+            class="p-2 border focus:border-blue-400 text-gray-500 border-gray-200 shadow rounded"
+            id="subcategory"
+            v-model="selectedCategory"
+            placeholder="hola"
+            @change="updateSubcategories()"
+          >
+            <option
+              v-for="category in categories"
+              :key="category.name"
+              :value="category.id"
             >
-              <option
-                v-for="category in categories"
-                :key="category.name"
-                :value="category.id"
-              >
-                {{ category.name }}
-              </option>
-            </select>
-          </div>
+              {{ category.name }}
+            </option>
+          </select>
         </div>
-        <div
-          class="grid grid-rows-2 md:grid-cols-2 md:grid-rows-1 items-center"
-        >
+        <div class="grid">
           <div>
             <label for="subcategory">Selecciona una subcategoría </label>
           </div>
-          <div class="flex justify-start md:justify-center">
-            <select
-              name="subcategory"
-              class="py-1 w-5/6 md:w-full border-2 border-blue-50 text-gray-500"
-              id="subcategory"
-              v-model="selectedSubcategory"
-            >
-              <option v-if="areSubcategories" :selected="true" disabled>
-                No se han encontrado subcagorias
-              </option>
+          <select
+            name="subcategory"
+            class="p-2 border focus:border-blue-400 text-gray-500 border-gray-200 shadow rounded"
+            id="subcategory"
+            v-model="selectedSubcategory"
+          >
+            <option v-if="areSubcategories" :selected="true" disabled>
+              No se han encontrado subcagorias
+            </option>
 
-              <option
-                v-for="subcategory in subcategories"
-                :key="subcategory.name"
-                :value="subcategory.id"
-              >
-                {{ subcategory.name }}
-              </option>
-            </select>
-          </div>
+            <option
+              v-for="subcategory in subcategories"
+              :key="subcategory.name"
+              :value="subcategory.id"
+            >
+              {{ subcategory.name }}
+            </option>
+          </select>
         </div>
       </div>
-      <div class="grid grid-cols-2 items-center">
+      <div class="grid grid-cols-1 items-center">
         <label for="short_description">Descripción corta</label>
         <input
-          class="py-2 px-1"
+          class="p-2 border focus:border-blue-400 text-gray-500 border-gray-200 shadow rounded"
           type="text"
           id="short_description"
           name="short_description"
@@ -76,19 +68,20 @@
           v-model="short_description"
         />
       </div>
-      <div class="grid grid-cols-2 items-center">
+      <div class="grid grid-cols-1 items-center">
         <label for="description">Descripción larga</label>
         <textarea
+          class="p-2 border focus:border-blue-400 text-gray-500 border-gray-200 shadow rounded"
           name="description"
           id="description"
           placeholder="Descripcion larga y detallada del producto"
           v-model="description"
         />
       </div>
-      <div class="grid grid-cols-2 items-center">
+      <div class="grid grid-cols-1 items-center">
         <label for="price">Precio regular</label>
         <input
-          class="py-2 px-1"
+          class="p-2 border focus:border-blue-400 text-gray-500 border-gray-200 shadow rounded"
           type="number"
           id="price"
           name="price"
@@ -96,10 +89,10 @@
           placeholder="Ejemplo: 10.0000"
         />
       </div>
-      <div class="grid grid-cols-2 items-center">
+      <div class="grid grid-cols-1 items-center">
         <label for="discount">Precio con descuento</label>
         <input
-          class="py-2 px-1"
+          class="p-2 border focus:border-blue-400 text-gray-500 border-gray-200 shadow rounded"
           type="text"
           id="discount"
           name="discount"
@@ -107,10 +100,10 @@
           placeholder="Ejemplo: 8.000"
         />
       </div>
-      <div class="grid grid-cols-2 items-center">
+      <div class="grid grid-cols-1 items-center">
         <label for="reference">Referencia</label>
         <input
-          class="py-2 px-1"
+          class="p-2 border focus:border-blue-400 text-gray-500 border-gray-200 shadow rounded"
           type="text"
           id="reference"
           name="reference"
@@ -148,7 +141,7 @@
     <div class="grid grid-cols-2 items-center" v-show="look_for_stock">
       <label for="stock">Stock</label>
       <input
-        class="py-2 px-1"
+        class="p-2 border focus:border-blue-400 text-gray-500 border-gray-200 shadow rounded"
         type="number"
         id="stock"
         name="stock"
@@ -324,8 +317,15 @@
         <div v-html="confirmationMensaje" class="px-2 my-1"></div>
       </div>
     </modal>
-
-    <button @click="sendData()">Guardar producto</button>
+    <div class="self-center">
+      <button
+        class="py-1 px-5 rounded shadow border text-white text-center border-gray-300 bg-blue-500 inline-block"
+        @click="sendData()"
+      >
+        Guardar producto
+      </button>
+    </div>
+    <div class="opacity-0">s</div>
   </div>
 </template>
 
@@ -448,6 +448,7 @@ export default {
       for (let i = 0; i < this.images.length; i++) {
         form.append("image[]", this.images[i]);
       }
+      console.log(form);
       let mensaje = "<ul>";
       axios
         .post(url, form, {

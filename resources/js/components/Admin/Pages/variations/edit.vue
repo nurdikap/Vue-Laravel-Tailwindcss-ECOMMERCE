@@ -1,11 +1,25 @@
 <template>
   <div class="w-full h-screen flex flex-col text-sm space-y-4 px-3 py-3">
-    <h1 class="text-xl font-medium">Editar variacion</h1>
-    <div class="flex flex-col space-y-4">
-      <div class="grid grid-cols-2 items-center">
-        <label for="name">Nombre</label>
+    <h1 class="text-xl font-medium">Editar variacion {{ variation.id }}</h1>
+    <div class="space-x-1">
+      <span> Atributos: </span>
+      <span
+        class="inline-block"
+        v-for="(attribute, index) in variation.attributes"
+        :key="index"
+      >
+        {{
+          index + 1 !== variation.attributes.length
+            ? ` ${attribute.value},`
+            : attribute.value
+        }}
+      </span>
+    </div>
+    <div class="flex flex-col space-y-6">
+      <div class="grid grid-cols-1 space-y-2 items-center">
+        <label for="name">Nombre del producto</label>
         <input
-          class="py-2 px-1"
+          class="p-2 focus:border-blue-400 text-gray-500 border border-gray-200 shadow rounded"
           type="text"
           id="name"
           name="name"
@@ -14,10 +28,10 @@
         />
       </div>
 
-      <div class="grid grid-cols-2 items-center">
+      <div class="grid grid-cols-1 space-y-2 items-center">
         <label for="short_description">Descripción corta</label>
         <input
-          class="py-2 px-1"
+          class="p-2 border focus:border-blue-400 text-gray-500 border-gray-200 shadow rounded"
           type="text"
           id="short_description"
           name="short_description"
@@ -25,19 +39,20 @@
           v-model="short_description"
         />
       </div>
-      <div class="grid grid-cols-2 items-center">
+      <div class="grid grid-cols-1 space-y-3 items-center">
         <label for="description">Descripción larga</label>
         <textarea
+          class="p-2 focus:border-blue-400 text-gray-400 rounded border border-gray-200 shadow"
           name="description"
           id="description"
           placeholder="Descripcion larga y detallada del producto"
           v-model="description"
         />
       </div>
-      <div class="grid grid-cols-2 items-center">
+      <div class="grid grid-cols-1 space-y-2 items-center">
         <label for="price">Precio regular</label>
         <input
-          class="py-2 px-1"
+          class="p-2 border focus:border-blue-400 text-gray-500 border-gray-200 shadow rounded"
           type="number"
           id="price"
           name="price"
@@ -45,10 +60,10 @@
           placeholder="Ejemplo: 10.0000"
         />
       </div>
-      <div class="grid grid-cols-2 items-center">
+      <div class="grid grid-cols-1 space-y-2 items-center">
         <label for="discount">Precio con descuento</label>
         <input
-          class="py-2 px-1"
+          class="p-2 border focus:border-blue-400 text-gray-500 border-gray-200 shadow rounded"
           type="text"
           id="discount"
           name="discount"
@@ -56,10 +71,10 @@
           placeholder="Ejemplo: 8.000"
         />
       </div>
-      <div class="grid grid-cols-2 items-center">
+      <div class="grid grid-cols-1 space-y-2 items-center">
         <label for="reference">Referencia</label>
         <input
-          class="py-2 px-1"
+          class="p-2 border focus:border-blue-400 text-gray-500 border-gray-200 shadow rounded"
           type="text"
           id="reference"
           name="reference"
@@ -67,7 +82,7 @@
           placeholder="Referencia del producto"
         />
       </div>
-      <div class="grid grid-cols-2 items-center">
+      <div class="grid grid-cols-1 space-y-2 items-center">
         <label for="look_for_stock_yes">Control de Stock</label>
         <div class="flex flex-col space-y-2 text-gray-500">
           <div>
@@ -94,10 +109,13 @@
       </div>
     </div>
 
-    <div class="grid grid-cols-2 items-center" v-show="look_for_stock">
+    <div
+      class="grid grid-cols-1 space-y-2 items-center"
+      v-show="look_for_stock"
+    >
       <label for="stock">Stock</label>
       <input
-        class="py-2 px-1"
+        class="p-2 border focus:border-blue-400 text-gray-500 border-gray-200 shadow rounded"
         type="number"
         id="stock"
         name="stock"
@@ -162,7 +180,51 @@ export default {
       this.reference = this.variation.reference;
       this.stock = this.variation.stock;
       this.look_for_stock = this.variation.look_for_stock;
+      this.description = this.variation.description;
+      this.short_description = this.variation.short_description;
+    },
+    sendData: function () {
+      let url = `http://127.0.0.1:8000/admin/variations/${this.$route.params.variation}`;
+      let form = new FormData();
+      let $this = this;
+      form.append("name", this.name);
+      form.append("short_description", this.short_description);
+      form.append("description", this.description);
+      form.append("price", this.price);
+      form.append("discount", this.discount);
+      form.append("reference", this.reference);
+      form.append("look_for_stock", this.look_for_stock);
+      form.append("stock", this.stock);
 
+      for (let i = 0; i < this.images.length; i++) {
+        form.append("image[]", this.images[i]);
+      }
+      form.append("_method", "patch");
+
+      let mensaje = "<ul>";
+      console.log(form);
+      axios
+        .post(url, form, {
+          headers: { "Content-Type": "multipart/form-data" }
+        })
+        .then(function (response) {
+          $this.confirmationMensaje =
+            "Se ha creado exitosamente el producto con ID: " + response.data;
+          $this.$modal.show("modalExito");
+          console.log(response);
+        })
+        .catch((error) => {
+          let respuesta = error.response.data.errors;
+          for (error in respuesta) {
+            respuesta[error].forEach(function (element) {
+              mensaje += `<li> ${element}</li>`;
+            });
+          }
+          mensaje += "</ul>";
+
+          $this.$modal.show("modalError");
+          $this.errorMessage = mensaje;
+        });
     },
 
     photosChange: function (event) {

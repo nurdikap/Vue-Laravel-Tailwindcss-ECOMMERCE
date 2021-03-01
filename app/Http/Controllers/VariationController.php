@@ -23,10 +23,9 @@ class VariationController extends Controller
         return Variation::with('attributes')->orderBy('name')->get();
 
     }
-    public function getVariation(Variation $variation){
+    public function getVariation($variation){
         
-        
-        return $variation;
+        return Variation::where('id',$variation)->with('attributes')->first();
     }
 
     /**
@@ -83,7 +82,35 @@ class VariationController extends Controller
      */
     public function update(Request $request, Variation $variation)
     {
-        //
+        $imagenes = $this->saveImagesFromRequest($request);
+        $array = $request->all();
+        unset($array['image']);
+        $variation->update($array);
+        $variation->images = json_encode($imagenes);
+        $variation->save();
+        return $variation;
+
+    }
+    public function saveImagesFromRequest($request)
+    {
+        if ($request->hasFile('image')) {
+            $imagenes = [];
+
+            foreach ($request->file('image') as $aux) {
+                $image = $aux;
+
+                $image_original_name = $image->getClientOriginalName();
+
+                $image_changed_name = str_replace(' ', '-', $image_original_name);
+                $image_destination_name = time() . '_' . $image_changed_name;
+                $path = 'images/productos';
+                $image->move($path, $image_destination_name);
+                array_push($imagenes, $path . '/' . $image_destination_name);
+            }
+            return $imagenes;
+        } else {
+            return false;
+        }
     }
 
     /**
