@@ -47,7 +47,7 @@
           />
         </svg>
       </div>
-      <div>Logo</div>
+      <div class="font-medium text-center">INGERCOL</div>
       <button @click="$router.back()">Volver</button>
     </div>
   </div>

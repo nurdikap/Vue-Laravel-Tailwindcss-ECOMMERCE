@@ -6,9 +6,19 @@ Vue.use(Router);
 export default new Router({
     routes: [
         {
+            path: "/admin/products",
+            name: "adminProducts",
+            component: require("./components/Admin/Pages/products/index.vue").default
+        },
+        {
             path: "/admin/products/create",
             name: "adminProductsCreate",
             component: require("./components/Admin/Pages/products/create.vue").default
+        },
+        {
+            path: "/admin/products/:product/edit",
+            name: "adminProductsEdit",
+            component: require("./components/Admin/Pages/products/edit.vue").default
         },
         {
             path: "/admin/variations",
