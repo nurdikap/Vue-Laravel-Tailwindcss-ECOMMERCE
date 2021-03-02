@@ -1,5 +1,7 @@
 <template>
-  <div class="w-full h-screen flex flex-col text-sm space-y-2 px-3 py-2">
+  <div class="w-full relative h-screen flex flex-col text-sm space-y-2 px-3 py-2">
+       <AdminMenu/>
+
     <h1 class="text-xl font-medium">Subida de productos</h1>
     <div class="flex flex-col space-y-4">
       <div class="grid grid-cols-1 items-center">
@@ -332,6 +334,7 @@
 <script>
 import axios from "axios";
 import Division from "../../../OspinaTrap/Division";
+import AdminMenu from "../../Components/Menu"
 export default {
   mounted() {
     this.getCategories();
@@ -388,7 +391,7 @@ export default {
     },
     // Methods for attributes
     getAttributes: function () {
-      let url = "http://127.0.0.1:8000/admin/attributes";
+      let url = "http://127.0.0.1:8000/api/attributes";
       let $this = this;
       axios.get(url).then(function (response) {
         console.log(response.data);
@@ -397,7 +400,7 @@ export default {
     },
 
     updateSubcategories: function () {
-      let url = "http://127.0.0.1:8000/admin/";
+      let url = "http://127.0.0.1:8000/api/";
       let $this = this;
       axios
         .get(`${url}categories/${$this.selectedCategory}/getSubcategories`)
@@ -414,7 +417,7 @@ export default {
     },
 
     getCategories: function () {
-      let url = "http://127.0.0.1:8000/admin/";
+      let url = "http://127.0.0.1:8000/api/";
       let $this = this;
       axios
         .get(url + "categories")
@@ -429,7 +432,7 @@ export default {
         });
     },
     sendData: function () {
-      let url = "http://127.0.0.1:8000/admin/products";
+      let url = "http://127.0.0.1:8000/api/products";
       let form = new FormData();
       let $this = this;
       form.append("attributes", JSON.stringify(this.attributes));
@@ -530,7 +533,7 @@ export default {
     },
   },
   components: {
-    Division,
+    Division,AdminMenu
   },
 };
 </script>

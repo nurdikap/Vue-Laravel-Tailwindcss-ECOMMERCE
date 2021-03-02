@@ -14,6 +14,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::apiResource('products','Api\ProductController');
+Route::apiResource('variations','Api\VariationController');
+Route::apiResource('attributes','Api\AttributeController');
+Route::apiResource('categories','Api\CategoryController');
+Route::get('categories/{category}/getSubcategories','Api\CategoryController@getSubcategories');
+
+Route::apiResource('subcategories','Api\SubcategoryController');
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });

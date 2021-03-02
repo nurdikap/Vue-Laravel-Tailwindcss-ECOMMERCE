@@ -1,16 +1,20 @@
 <template>
-  <div class="w-full min-h-screen space-y-3 flex flex-col overflow-hidden p-2">
+  <div class="w-full relative min-h-screen space-y-3 flex flex-col overflow-hidden p-2">
+    <AdminMenu />
+
     <h2 class="text-xl font-medium text-center">Variaciones de variationos</h2>
     <h3 class="">
-      En esta pagina se puede visualizar las variaciones de los productos, y permite editarlas.
-
+      En esta pagina se puede visualizar las variaciones de los productos, y
+      permite editarlas.
     </h3>
     <!-- Tabla de variaciones  -->
     <div class="w-full overflow-auto md:px-4">
       <table class="table-auto w-full border-collapse mx-auto">
         <thead>
           <tr class="text-left">
-            <th class="py-2.5 pl-2 pr-10 border-t border-b border-blue-200">ID</th>
+            <th class="py-2.5 pl-2 pr-10 border-t border-b border-blue-200">
+              ID
+            </th>
             <th class="py-2.5 pr-10 border-t border-b border-blue-200">
               Producto
             </th>
@@ -48,7 +52,13 @@
             </td>
             <td class="py-2.5 pr-1 border-t border-b border-blue-200">
               <div class="flex space-x-2 justify-center items-center w-full">
-                <router-link :to="{name:'adminVariationsEdit', params:{variation:variation.id}}" class="bg-blue-100 cursor-pointer p-1.5 rounded-full">
+                <router-link
+                  :to="{
+                    name: 'adminVariationsEdit',
+                    params: { variation: variation.id },
+                  }"
+                  class="bg-blue-100 cursor-pointer p-1.5 rounded-full"
+                >
                   <svg
                     class="w-4 h-4 text-blue-600"
                     xmlns="http://www.w3.org/2000/svg"
@@ -64,7 +74,7 @@
                     />
                   </svg>
                 </router-link>
-                <div class="bg-blue-100 cursor-pointer p-1.5 rounded-full ">
+                <div class="bg-blue-100 cursor-pointer p-1.5 rounded-full">
                   <svg
                     class="w-4 h-4 text-blue-600"
                     xmlns="http://www.w3.org/2000/svg"
@@ -91,18 +101,20 @@
 
 <script>
 import axios from "axios";
+import AdminMenu from "../../Components/Menu";
 export default {
+  components: { AdminMenu },
   async mounted() {
     let variations = await this.getvariations();
     this.updatevariations(variations);
   },
   methods: {
     getvariations: async function () {
-      let url = "http://127.0.0.1:8000/admin/";
+      let url = "http://127.0.0.1:8000/api/";
       let $this = this;
       let respuesta = "";
       await axios
-        .get(url + "getVariations")
+        .get(url + "variations")
         .then(function (response) {
           console.log(response.data);
           respuesta = response.data;

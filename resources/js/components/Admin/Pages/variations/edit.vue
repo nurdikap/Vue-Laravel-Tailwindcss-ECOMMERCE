@@ -1,5 +1,8 @@
 <template>
-  <div class="w-full h-screen flex flex-col text-sm space-y-4 px-3 py-3">
+  <div
+    class="w-full h-screen flex flex-col text-sm space-y-4 px-3 py-3 relative"
+  >
+   <AdminMenu/>
     <h1 class="text-xl font-medium">Editar variacion {{ variation.id }}</h1>
     <div class="space-x-1">
       <span> Atributos: </span>
@@ -150,7 +153,9 @@
 
 <script>
 import axios from "axios";
+import AdminMenu from "../../Components/Menu"
 export default {
+  components: {AdminMenu},
   async mounted() {
     let variation = await this.getvariation();
     this.updateVariation(variation);
@@ -158,11 +163,11 @@ export default {
 
   methods: {
     getvariation: async function () {
-      let url = "http://127.0.0.1:8000/admin/";
+      let url = "http://127.0.0.1:8000/api/";
       let $this = this;
       let respuesta = "";
       await axios
-        .get(url + "getVariation/" + $this.$route.params.variation)
+        .get(url + "variations/" + $this.$route.params.variation)
         .then(function (response) {
           console.log(response.data);
           respuesta = response.data;
@@ -184,7 +189,7 @@ export default {
       this.short_description = this.variation.short_description;
     },
     sendData: function () {
-      let url = `http://127.0.0.1:8000/admin/variations/${this.$route.params.variation}`;
+      let url = `http://127.0.0.1:8000/api/variations/${this.$route.params.variation}`;
       let form = new FormData();
       let $this = this;
       form.append("name", this.name);
@@ -205,11 +210,11 @@ export default {
       console.log(form);
       axios
         .post(url, form, {
-          headers: { "Content-Type": "multipart/form-data" }
+          headers: { "Content-Type": "multipart/form-data" },
         })
         .then(function (response) {
           $this.confirmationMensaje =
-            "Se ha creado exitosamente el producto con ID: " + response.data;
+            "Se ha editado exitosamente el producto con ID: " + response.data;
           $this.$modal.show("modalExito");
           console.log(response);
         })
@@ -237,6 +242,7 @@ export default {
   },
   data() {
     return {
+      menu: false,
       variation: "",
       errorMessage: "",
       confirmationMensaje: "",

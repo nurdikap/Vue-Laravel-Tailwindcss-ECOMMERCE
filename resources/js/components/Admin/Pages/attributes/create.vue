@@ -1,5 +1,7 @@
 <template>
   <div class="w-full h-screen flex flex-col text-sm space-y-4 px-3 py-3">
+    <AdminMenu />
+
     <h1 class="text-xl font-medium">Crear nuevo atributos</h1>
     <div class="flex flex-col space-y-4">
       <div class="flex flex-col space-y-4 w-full">
@@ -104,13 +106,15 @@
 
 <script>
 import axios from "axios";
+import AdminMenu from "../../Components/Menu";
 export default {
+  components: { AdminMenu },
   mounted() {
     this.getAttributes();
   },
   methods: {
     getAttributes: function () {
-      let url = "http://127.0.0.1:8000/admin/attributes";
+      let url = "http://127.0.0.1:8000/api/attributes";
       let $this = this;
 
       axios.get(url).then(function (response) {
@@ -119,7 +123,7 @@ export default {
       });
     },
     sendData: function () {
-      let url = "http://127.0.0.1:8000/admin/attributes";
+      let url = "http://127.0.0.1:8000/api/attributes";
       let $this = this;
       let data = {
         attributes: this.attributes,
@@ -132,8 +136,8 @@ export default {
 
     removeAttribute: function (attributeIndex) {
       let $this = this;
-      this.attributes[attributeIndex].variations.forEach(function (variation){
-      $this.removedIndex.push(variation.id);
+      this.attributes[attributeIndex].variations.forEach(function (variation) {
+        $this.removedIndex.push(variation.id);
       });
 
       this.attributes.splice(attributeIndex, 1);
@@ -178,7 +182,6 @@ export default {
       removedIndex: [],
     };
   },
- 
 };
 </script>
 
