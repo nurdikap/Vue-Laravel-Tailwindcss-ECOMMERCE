@@ -2,17 +2,17 @@
   <div
     class="w-full h-screen flex flex-col text-sm space-y-4 px-3 py-3 relative"
   >
-   <AdminMenu/>
-    <h1 class="text-xl font-medium">Editar variacion {{ variation.id }}</h1>
+    <AdminMenu />
+    <h1 class="text-xl font-medium">Editar producto {{ product.id }}</h1>
     <div class="space-x-1">
       <span> Atributos: </span>
       <span
         class="inline-block"
-        v-for="(attribute, index) in variation.attributes"
+        v-for="(attribute, index) in product.attributes"
         :key="index"
       >
         {{
-          index + 1 !== variation.attributes.length
+          index + 1 !== product.attributes.length
             ? ` ${attribute.value},`
             : attribute.value
         }}
@@ -153,21 +153,21 @@
 
 <script>
 import axios from "axios";
-import AdminMenu from "../../Components/Menu"
+import AdminMenu from "../../Components/Menu";
 export default {
-  components: {AdminMenu},
+  components: { AdminMenu },
   async mounted() {
-    let variation = await this.getvariation();
-    this.updateVariation(variation);
+    let product = await this.getproduct();
+    this.updateproduct(product);
   },
 
   methods: {
-    getvariation: async function () {
+    getproduct: async function () {
       let url = "http://127.0.0.1:8000/api/";
       let $this = this;
       let respuesta = "";
       await axios
-        .get(url + "variations/" + $this.$route.params.variation)
+        .get(url + "products/" + $this.$route.params.product)
         .then(function (response) {
           console.log(response.data);
           respuesta = response.data;
@@ -177,19 +177,19 @@ export default {
         });
       return respuesta;
     },
-    updateVariation: function (variation) {
-      this.variation = variation;
-      this.name = this.variation.name;
-      this.price = this.variation.price;
-      this.discount = this.variation.discount;
-      this.reference = this.variation.reference;
-      this.stock = this.variation.stock;
-      this.look_for_stock = this.variation.look_for_stock;
-      this.description = this.variation.description;
-      this.short_description = this.variation.short_description;
+    updateproduct: function (product) {
+      this.product = product;
+      this.name = this.product.name;
+      this.price = this.product.price;
+      this.discount = this.product.discount;
+      this.reference = this.product.reference;
+      this.stock = this.product.stock;
+      this.look_for_stock = this.product.look_for_stock;
+      this.description = this.product.description;
+      this.short_description = this.product.short_description;
     },
     sendData: function () {
-      let url = `http://127.0.0.1:8000/api/variations/${this.$route.params.variation}`;
+      let url = `http://127.0.0.1:8000/api/products/${this.$route.params.product}`;
       let form = new FormData();
       let $this = this;
       form.append("name", this.name);
@@ -243,7 +243,7 @@ export default {
   data() {
     return {
       menu: false,
-      variation: "",
+      product: "",
       errorMessage: "",
       confirmationMensaje: "",
       images: [],

@@ -1,16 +1,19 @@
 <template>
   <div
-    class="w-full relative min-h-screen space-y-3 flex flex-col overflow-hidden p-2"
+    class="w-full relative min-h-screen space-y-5 flex flex-col overflow-hidden py-2 px-2 md:px-5"
   >
     <AdminMenu />
 
-    <h2 class="text-xl font-medium text-center">Productos creados</h2>
-    <h3 class="">
-      En esta pagina se pueden visualizar todos los productos activos en el
-      sistema.
-    </h3>
+    <h2 class="text-xl font-medium text-center">Productos creados en el sistema</h2>
+    <div class="flex justify-end items-center">
+     
+      <router-link class="py-1 md:py-1.5 rounded px-1 bg-primario hover:bg-blue-500 text-white font-medmium md:mr-4" :to="{name:'adminProductsCreate'}"> 
+        Crear producto
+      </router-link>
+    </div>
+
     <!-- Tabla de variaciones  -->
-    <div class="w-full overflow-auto md:px-4">
+    <div class="w-full overflow-auto">
       <table class="table-auto w-full border-collapse mx-auto">
         <thead>
           <tr class="text-left">

@@ -20,7 +20,7 @@
           />
         </svg>
       </div>
-      <router-link class="block" :to="{ name: 'adminProductsCreate' }">
+      <router-link class="block" :to="{ name: 'adminProducts' }">
         Productos
       </router-link>
       <router-link class="block" :to="{ name: 'adminAttributesCreate' }">

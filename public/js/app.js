@@ -9068,18 +9068,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     var _this = this;
 
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-      var variation;
+      var product;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
               _context.next = 2;
-              return _this.getvariation();
+              return _this.getproduct();
 
             case 2:
-              variation = _context.sent;
+              product = _context.sent;
 
-              _this.updateVariation(variation);
+              _this.updateproduct(product);
 
             case 4:
             case "end":
@@ -9090,8 +9090,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }))();
   },
   methods: {
-    getvariation: function () {
-      var _getvariation = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+    getproduct: function () {
+      var _getproduct = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
         var url, $this, respuesta;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
@@ -9101,7 +9101,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 $this = this;
                 respuesta = "";
                 _context2.next = 5;
-                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get(url + "variations/" + $this.$route.params.variation).then(function (response) {
+                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get(url + "products/" + $this.$route.params.product).then(function (response) {
                   console.log(response.data);
                   respuesta = response.data;
                 })["catch"](function (error) {
@@ -9119,25 +9119,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee2, this);
       }));
 
-      function getvariation() {
-        return _getvariation.apply(this, arguments);
+      function getproduct() {
+        return _getproduct.apply(this, arguments);
       }
 
-      return getvariation;
+      return getproduct;
     }(),
-    updateVariation: function updateVariation(variation) {
-      this.variation = variation;
-      this.name = this.variation.name;
-      this.price = this.variation.price;
-      this.discount = this.variation.discount;
-      this.reference = this.variation.reference;
-      this.stock = this.variation.stock;
-      this.look_for_stock = this.variation.look_for_stock;
-      this.description = this.variation.description;
-      this.short_description = this.variation.short_description;
+    updateproduct: function updateproduct(product) {
+      this.product = product;
+      this.name = this.product.name;
+      this.price = this.product.price;
+      this.discount = this.product.discount;
+      this.reference = this.product.reference;
+      this.stock = this.product.stock;
+      this.look_for_stock = this.product.look_for_stock;
+      this.description = this.product.description;
+      this.short_description = this.product.short_description;
     },
     sendData: function sendData() {
-      var url = "http://127.0.0.1:8000/api/variations/".concat(this.$route.params.variation);
+      var url = "http://127.0.0.1:8000/api/products/".concat(this.$route.params.product);
       var form = new FormData();
       var $this = this;
       form.append("name", this.name);
@@ -9189,7 +9189,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   data: function data() {
     return {
       menu: false,
-      variation: "",
+      product: "",
       errorMessage: "",
       confirmationMensaje: "",
       images: [],
@@ -9227,6 +9227,9 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
+//
 //
 //
 //
@@ -14129,10 +14132,7 @@ var render = function() {
         _vm._v(" "),
         _c(
           "router-link",
-          {
-            staticClass: "block",
-            attrs: { to: { name: "adminProductsCreate" } }
-          },
+          { staticClass: "block", attrs: { to: { name: "adminProducts" } } },
           [_vm._v("\n      Productos\n    ")]
         ),
         _vm._v(" "),
@@ -15609,7 +15609,7 @@ var render = function() {
       _c("AdminMenu"),
       _vm._v(" "),
       _c("h1", { staticClass: "text-xl font-medium" }, [
-        _vm._v("Editar variacion " + _vm._s(_vm.variation.id))
+        _vm._v("Editar producto " + _vm._s(_vm.product.id))
       ]),
       _vm._v(" "),
       _c(
@@ -15618,12 +15618,12 @@ var render = function() {
         [
           _c("span", [_vm._v(" Atributos: ")]),
           _vm._v(" "),
-          _vm._l(_vm.variation.attributes, function(attribute, index) {
+          _vm._l(_vm.product.attributes, function(attribute, index) {
             return _c("span", { key: index, staticClass: "inline-block" }, [
               _vm._v(
                 "\n      " +
                   _vm._s(
-                    index + 1 !== _vm.variation.attributes.length
+                    index + 1 !== _vm.product.attributes.length
                       ? " " + attribute.value + ","
                       : attribute.value
                   ) +
@@ -16056,22 +16056,33 @@ var render = function() {
     "div",
     {
       staticClass:
-        "w-full relative min-h-screen space-y-3 flex flex-col overflow-hidden p-2"
+        "w-full relative min-h-screen space-y-5 flex flex-col overflow-hidden py-2 px-2 md:px-5"
     },
     [
       _c("AdminMenu"),
       _vm._v(" "),
       _c("h2", { staticClass: "text-xl font-medium text-center" }, [
-        _vm._v("Productos creados")
+        _vm._v("Productos creados en el sistema")
       ]),
       _vm._v(" "),
-      _c("h3", {}, [
-        _vm._v(
-          "\n    En esta pagina se pueden visualizar todos los productos activos en el\n    sistema.\n  "
-        )
-      ]),
+      _c(
+        "div",
+        { staticClass: "flex justify-end items-center" },
+        [
+          _c(
+            "router-link",
+            {
+              staticClass:
+                "py-1 md:py-1.5 rounded px-1 bg-primario hover:bg-blue-500 text-white font-medmium md:mr-4",
+              attrs: { to: { name: "adminProductsCreate" } }
+            },
+            [_vm._v(" \n      Crear producto\n    ")]
+          )
+        ],
+        1
+      ),
       _vm._v(" "),
-      _c("div", { staticClass: "w-full overflow-auto md:px-4" }, [
+      _c("div", { staticClass: "w-full overflow-auto" }, [
         _c(
           "table",
           { staticClass: "table-auto w-full border-collapse mx-auto" },
