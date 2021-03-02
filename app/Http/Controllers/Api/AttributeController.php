@@ -117,8 +117,9 @@ class AttributeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Attribute $attribute)
     {
-        //
+        $attribute->delete();
+        return response('Attribute has been successfully deleted');
     }
 }

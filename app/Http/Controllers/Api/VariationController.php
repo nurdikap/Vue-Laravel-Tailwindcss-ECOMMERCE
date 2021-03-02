@@ -105,8 +105,9 @@ class VariationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Variation $variation)
     {
-        //
+        $variation->delete();
+        return response('variation group has been successfully deleted');
     }
 }

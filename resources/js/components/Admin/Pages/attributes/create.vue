@@ -101,6 +101,12 @@
 
       <button @click="sendData()">Guardar Atributos</button>
     </div>
+    <modal name="modalExito" adaptive height="auto" classes="bg-red-200"
+      ><div class="space-y-4 flex flex-col justify-center w-full h-full py-3">
+        <p class="font-medium text-center">¡Attributos actualizados con éxito! 🎆</p>
+        <div v-html="confirmationMensaje" class="px-2 my-1"></div>
+      </div>
+    </modal>
   </div>
 </template>
 
@@ -131,6 +137,7 @@ export default {
       };
       axios.post(url, data).then(function (response) {
         console.log(response);
+        $this.$modal.show("modalExito");
       });
     },
 

@@ -1,5 +1,7 @@
 <template>
-  <div class="w-full relative min-h-screen space-y-3 flex flex-col overflow-hidden p-2">
+  <div
+    class="w-full relative min-h-screen space-y-3 flex flex-col overflow-hidden p-2"
+  >
     <AdminMenu />
 
     <h2 class="text-xl font-medium text-center">Variaciones de variationos</h2>
@@ -74,7 +76,13 @@
                     />
                   </svg>
                 </router-link>
-                <div class="bg-blue-100 cursor-pointer p-1.5 rounded-full">
+                <div
+                  class="bg-blue-100 cursor-pointer p-1.5 rounded-full"
+                  @click="
+                    selectedVariation = variation.id;
+                    $modal.show('confirmationModal');
+                  "
+                >
                   <svg
                     class="w-4 h-4 text-blue-600"
                     xmlns="http://www.w3.org/2000/svg"
@@ -96,6 +104,42 @@
         </tbody>
       </table>
     </div>
+    <modal name="confirmationModal" adaptive height="auto" classes="bg-red-200"
+      ><div class="space-y-4 flex flex-col justify-center w-full h-full py-3">
+        <p class="font-medium text-center">
+          ¡Cuidado, esta acción es irreversible ⚠!
+        </p>
+        <div class="px-2 my-1 space-y-4">
+          <p class="text-center">
+            ¿Estás seguro de que deseas eliminar este conjunto de variaciones?
+          </p>
+          <div class="flex justify-around">
+            <button
+              @click="$modal.hide('confirmationModal')"
+              class="bg-white text-primario font-medium uppercase py-1 px-2 border border-primario"
+            >
+              Cancelar
+            </button>
+            <button
+              @click="deleteVariation()"
+              class="bg-primario text-white font-medium uppercase py-1 px-2 rounded"
+            >
+              Aceptar
+            </button>
+          </div>
+        </div>
+      </div>
+    </modal>
+    <modal name="successModal" adaptive height="auto" classes="bg-red-200"
+      ><div class="space-y-4 flex flex-col justify-center w-full h-full py-3">
+        <p class="font-medium text-center">¡Éxito!</p>
+        <div class="px-2 my-1 space-y-4">
+          <p class="text-center">
+            Las variaciones se han eliminado exitosamente
+          </p>
+        </div>
+      </div>
+    </modal>
   </div>
 </template>
 
@@ -116,7 +160,6 @@ export default {
       await axios
         .get(url + "variations")
         .then(function (response) {
-          console.log(response.data);
           respuesta = response.data;
         })
         .catch(function (error) {
@@ -127,9 +170,23 @@ export default {
     updatevariations: function (variations) {
       this.variations = variations;
     },
+    deleteVariation: function () {
+      let url = "http://127.0.0.1:8000/api/";
+      let $this = this;
+      axios
+        .delete(url + `variations/${this.selectedVariation}`)
+        .then(function (response) {
+          $this.$modal.hide("confirmationModal");
+          $this.$modal.show("successModal");
+        })
+        .catch(function (error) {
+          console.log(error.message);
+        });
+    },
   },
   data() {
     return {
+      selectedVariation: "",
       variations: [],
     };
   },

@@ -8264,6 +8264,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -8291,6 +8297,7 @@ __webpack_require__.r(__webpack_exports__);
       };
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(url, data).then(function (response) {
         console.log(response);
+        $this.$modal.show("modalExito");
       });
     },
     removeAttribute: function removeAttribute(attributeIndex) {
@@ -9321,6 +9328,50 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -9365,7 +9416,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 respuesta = "";
                 _context2.next = 5;
                 return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get(url + "variations").then(function (response) {
-                  console.log(response.data);
                   respuesta = response.data;
                 })["catch"](function (error) {
                   console.log(error.message);
@@ -9390,10 +9440,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }(),
     updatevariations: function updatevariations(variations) {
       this.variations = variations;
+    },
+    deleteVariation: function deleteVariation() {
+      var url = "http://127.0.0.1:8000/api/";
+      var $this = this;
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a["delete"](url + "variations/".concat(this.selectedVariation)).then(function (response) {
+        $this.$modal.hide("confirmationModal");
+        $this.$modal.show("successModal");
+      })["catch"](function (error) {
+        console.log(error.message);
+      });
     }
   },
   data: function data() {
     return {
+      selectedVariation: "",
       variations: []
     };
   }
@@ -13833,6 +13894,37 @@ var render = function() {
           )
         ],
         1
+      ),
+      _vm._v(" "),
+      _c(
+        "modal",
+        {
+          attrs: {
+            name: "modalExito",
+            adaptive: "",
+            height: "auto",
+            classes: "bg-red-200"
+          }
+        },
+        [
+          _c(
+            "div",
+            {
+              staticClass:
+                "space-y-4 flex flex-col justify-center w-full h-full py-3"
+            },
+            [
+              _c("p", { staticClass: "font-medium text-center" }, [
+                _vm._v("¡Attributos actualizados con éxito! 🎆")
+              ]),
+              _vm._v(" "),
+              _c("div", {
+                staticClass: "px-2 my-1",
+                domProps: { innerHTML: _vm._s(_vm.confirmationMensaje) }
+              })
+            ]
+          )
+        ]
       )
     ],
     1
@@ -15479,7 +15571,13 @@ var render = function() {
                               "div",
                               {
                                 staticClass:
-                                  "bg-blue-100 cursor-pointer p-1.5 rounded-full"
+                                  "bg-blue-100 cursor-pointer p-1.5 rounded-full",
+                                on: {
+                                  click: function($event) {
+                                    _vm.selectedVariation = variation.id
+                                    _vm.$modal.show("confirmationModal")
+                                  }
+                                }
                               },
                               [
                                 _c(
@@ -15519,7 +15617,107 @@ var render = function() {
             )
           ]
         )
-      ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "modal",
+        {
+          attrs: {
+            name: "confirmationModal",
+            adaptive: "",
+            height: "auto",
+            classes: "bg-red-200"
+          }
+        },
+        [
+          _c(
+            "div",
+            {
+              staticClass:
+                "space-y-4 flex flex-col justify-center w-full h-full py-3"
+            },
+            [
+              _c("p", { staticClass: "font-medium text-center" }, [
+                _vm._v(
+                  "\n        ¡Cuidado, esta acción es irreversible ⚠!\n      "
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "px-2 my-1 space-y-4" }, [
+                _c("p", { staticClass: "text-center" }, [
+                  _vm._v(
+                    "\n          ¿Estás seguro de que deseas eliminar este conjunto de variaciones?\n        "
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "flex justify-around" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass:
+                        "bg-white text-primario font-medium uppercase py-1 px-2 border border-primario",
+                      on: {
+                        click: function($event) {
+                          return _vm.$modal.hide("confirmationModal")
+                        }
+                      }
+                    },
+                    [_vm._v("\n            Cancelar\n          ")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass:
+                        "bg-primario text-white font-medium uppercase py-1 px-2 rounded",
+                      on: {
+                        click: function($event) {
+                          return _vm.deleteVariation()
+                        }
+                      }
+                    },
+                    [_vm._v("\n            Aceptar\n          ")]
+                  )
+                ])
+              ])
+            ]
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "modal",
+        {
+          attrs: {
+            name: "successModal",
+            adaptive: "",
+            height: "auto",
+            classes: "bg-red-200"
+          }
+        },
+        [
+          _c(
+            "div",
+            {
+              staticClass:
+                "space-y-4 flex flex-col justify-center w-full h-full py-3"
+            },
+            [
+              _c("p", { staticClass: "font-medium text-center" }, [
+                _vm._v("¡Éxito!")
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "px-2 my-1 space-y-4" }, [
+                _c("p", { staticClass: "text-center" }, [
+                  _vm._v(
+                    "\n          Las variaciones se han eliminado exitosamente\n        "
+                  )
+                ])
+              ])
+            ]
+          )
+        ]
+      )
     ],
     1
   )
