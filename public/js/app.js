@@ -8269,7 +8269,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -14161,7 +14160,7 @@ var render = function() {
         _c(
           "div",
           {
-            staticClass: "cursor-pointer",
+            staticClass: "flex items-center space-x-3",
             on: {
               click: function($event) {
                 _vm.show = !_vm.show
@@ -14190,13 +14189,13 @@ var render = function() {
                   }
                 })
               ]
-            )
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "font-medium text-center" }, [
+              _vm._v("INGERCOL")
+            ])
           ]
         ),
-        _vm._v(" "),
-        _c("div", { staticClass: "font-medium text-center" }, [
-          _vm._v("INGERCOL")
-        ]),
         _vm._v(" "),
         _c(
           "button",
@@ -14237,13 +14236,11 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    {
-      staticClass: "w-full h-screen flex flex-col text-sm space-y-4 px-3 py-3"
-    },
+    { staticClass: "w-full h-screen flex flex-col space-y-4 px-3 py-3" },
     [
       _c("AdminMenu"),
       _vm._v(" "),
-      _c("h1", { staticClass: "text-xl font-medium" }, [
+      _c("h1", { staticClass: "text-lg font-medium" }, [
         _vm._v("Crear nuevo atributos")
       ]),
       _vm._v(" "),
@@ -14259,9 +14256,14 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "div",
-                { staticClass: "grid grid-cols-2 px-1 space-x-3 items-center" },
+                {
+                  staticClass:
+                    "grid grid-cols-6 px-1 space-x-3 items-center text-sm"
+                },
                 [
-                  _c("span", [_vm._v(" Añadir nuevo atributo ")]),
+                  _c("span", { staticClass: "col-span-2" }, [
+                    _vm._v(" Añadir nuevo atributo ")
+                  ]),
                   _vm._v(" "),
                   _c("input", {
                     directives: [
@@ -14273,7 +14275,7 @@ var render = function() {
                       }
                     ],
                     staticClass:
-                      "p-1 text-center shadow rounded-lg bg-blue-200 outline-none",
+                      "p-1 text-center col-span-4 md:col-span-3 shadow rounded-lg bg-blue-200 outline-none",
                     attrs: { type: "text", placeholder: "atributo" },
                     domProps: { value: _vm.currentAttribute },
                     on: {
@@ -14504,17 +14506,21 @@ var render = function() {
             ]
           ),
           _vm._v(" "),
-          _c(
-            "button",
-            {
-              on: {
-                click: function($event) {
-                  return _vm.sendData()
+          _c("div", { staticClass: "text-center" }, [
+            _c(
+              "button",
+              {
+                staticClass:
+                  "py-1 px-2 bg-primario rounded text-white mb-2 text-sm font-medium",
+                on: {
+                  click: function($event) {
+                    return _vm.sendData()
+                  }
                 }
-              }
-            },
-            [_vm._v("Guardar Atributos")]
-          )
+              },
+              [_vm._v("Guardar Atributos")]
+            )
+          ])
         ],
         1
       ),
@@ -14539,12 +14545,7 @@ var render = function() {
             [
               _c("p", { staticClass: "font-medium text-center" }, [
                 _vm._v("¡Attributos actualizados con éxito! 🎆")
-              ]),
-              _vm._v(" "),
-              _c("div", {
-                staticClass: "px-2 my-1",
-                domProps: { innerHTML: _vm._s(_vm.confirmationMensaje) }
-              })
+              ])
             ]
           )
         ]
@@ -14558,7 +14559,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("p", [
+    return _c("p", { staticClass: "text-justify" }, [
       _c("strong", [_vm._v("Seccion de Atributos del producto")]),
       _vm._v(
         ": Debe añadir las\n        propiedades y cada una de sus variaciones de la siguiente manera\n      "
@@ -16061,7 +16062,7 @@ var render = function() {
     [
       _c("AdminMenu"),
       _vm._v(" "),
-      _c("h2", { staticClass: "text-xl font-medium text-center" }, [
+      _c("h2", { staticClass: "text-lg md:text-xl font-medium text-center" }, [
         _vm._v("Productos creados en el sistema")
       ]),
       _vm._v(" "),
@@ -16073,7 +16074,7 @@ var render = function() {
             "router-link",
             {
               staticClass:
-                "py-1 md:py-1.5 rounded px-1 bg-primario hover:bg-blue-500 text-white font-medmium md:mr-4",
+                "py-1 md:py-1.5 rounded-xl px-3 bg-primario hover:bg-blue-500 text-white text-sm font-medmium md:mr-4",
               attrs: { to: { name: "adminProductsCreate" } }
             },
             [_vm._v(" \n      Crear producto\n    ")]

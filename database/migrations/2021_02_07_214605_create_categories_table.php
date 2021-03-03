@@ -19,7 +19,8 @@ class CreateCategoriesTable extends Migration
             $table->string('description', 300)->default('descripcion de la categoria');
 		    $table->text('image');
 		    $table->string('name', 150);
-
+            $table->boolean('featured');
+            $table->text('icon')->nullable();
             $table->timestamps();
         });
     }

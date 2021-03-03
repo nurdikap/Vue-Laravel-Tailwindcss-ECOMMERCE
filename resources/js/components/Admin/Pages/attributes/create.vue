@@ -1,22 +1,22 @@
 <template>
-  <div class="w-full h-screen flex flex-col text-sm space-y-4 px-3 py-3">
+  <div class="w-full h-screen flex flex-col space-y-4 px-3 py-3">
     <AdminMenu />
 
-    <h1 class="text-xl font-medium">Crear nuevo atributos</h1>
+    <h1 class="text-lg font-medium">Crear nuevo atributos</h1>
     <div class="flex flex-col space-y-4">
       <div class="flex flex-col space-y-4 w-full">
-        <p>
+        <p class="text-justify">
           <strong>Seccion de Atributos del producto</strong>: Debe añadir las
           propiedades y cada una de sus variaciones de la siguiente manera
         </p>
 
-        <div class="grid grid-cols-2 px-1 space-x-3 items-center">
-          <span> Añadir nuevo atributo </span>
+        <div class="grid grid-cols-6 px-1 space-x-3 items-center text-sm">
+          <span class="col-span-2"> Añadir nuevo atributo </span>
           <input
             type="text"
             placeholder="atributo"
             v-model="currentAttribute"
-            class="p-1 text-center shadow rounded-lg bg-blue-200 outline-none"
+            class="p-1 text-center col-span-4 md:col-span-3 shadow rounded-lg bg-blue-200 outline-none"
             @keyup.enter="addAttribute(currentAttribute)"
           />
         </div>
@@ -99,12 +99,11 @@
         </div>
       </modal>
 
-      <button @click="sendData()">Guardar Atributos</button>
+      <div class="text-center"><button class="py-1 px-2 bg-primario rounded text-white mb-2 text-sm font-medium" @click="sendData()">Guardar Atributos</button></div>
     </div>
     <modal name="modalExito" adaptive height="auto" classes="bg-red-200"
       ><div class="space-y-4 flex flex-col justify-center w-full h-full py-3">
         <p class="font-medium text-center">¡Attributos actualizados con éxito! 🎆</p>
-        <div v-html="confirmationMensaje" class="px-2 my-1"></div>
       </div>
     </modal>
   </div>

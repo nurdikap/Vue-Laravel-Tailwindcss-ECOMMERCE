@@ -4,10 +4,10 @@
   >
     <AdminMenu />
 
-    <h2 class="text-xl font-medium text-center">Productos creados en el sistema</h2>
+    <h2 class="text-lg md:text-xl font-medium text-center">Productos creados en el sistema</h2>
     <div class="flex justify-end items-center">
      
-      <router-link class="py-1 md:py-1.5 rounded px-1 bg-primario hover:bg-blue-500 text-white font-medmium md:mr-4" :to="{name:'adminProductsCreate'}"> 
+      <router-link class="py-1 md:py-1.5 rounded-xl px-3 bg-primario hover:bg-blue-500 text-white text-sm font-medmium md:mr-4" :to="{name:'adminProductsCreate'}"> 
         Crear producto
       </router-link>
     </div>

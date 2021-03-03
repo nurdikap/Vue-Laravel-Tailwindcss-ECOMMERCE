@@ -31,7 +31,7 @@
       </router-link>
     </div>
     <div class="w-full py-3 flex justify-between items-center">
-      <div @click="show = !show" class="cursor-pointer">
+      <div @click="show = !show" class="flex items-center space-x-3">
         <svg
           class="w-4 h-4"
           xmlns="http://www.w3.org/2000/svg"
@@ -46,8 +46,8 @@
             d="M4 6h16M4 12h16M4 18h16"
           />
         </svg>
-      </div>
       <div class="font-medium text-center">INGERCOL</div>
+      </div>
       <button @click="$router.back()">Volver</button>
     </div>
   </div>
