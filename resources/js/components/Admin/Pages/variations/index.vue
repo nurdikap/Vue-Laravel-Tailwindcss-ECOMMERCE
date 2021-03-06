@@ -4,7 +4,7 @@
   >
     <AdminMenu />
 
-    <h2 class="text-xl font-medium text-center">Variaciones de variationos</h2>
+    <h2 class="text-xl font-medium text-center">Grupos de variaciones</h2>
     <h3 class="">
       En esta pagina se puede visualizar las variaciones de los productos, y
       permite editarlas.

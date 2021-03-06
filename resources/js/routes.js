@@ -6,6 +6,16 @@ Vue.use(Router);
 export default new Router({
     routes: [
         {
+            path: "/admin/categories",
+            name: "adminCategories",
+            component: require("./components/Admin/Pages/categories/index.vue").default
+        },
+        {
+            path: "/admin/categories/create",
+            name: "adminCategoriesCreate",
+            component: require("./components/Admin/Pages/categories/create.vue").default
+        },
+        {
             path: "/admin/products",
             name: "adminProducts",
             component: require("./components/Admin/Pages/products/index.vue").default
