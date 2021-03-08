@@ -12333,6 +12333,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -12343,14 +12352,11 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     getProduct: function getProduct() {
-      var url = "http://127.0.0.1:8000/api/";
+      var url = "http://127.0.0.1:8000/api";
       var $this = this;
-      axios__WEBPACK_IMPORTED_MODULE_3___default.a.get("url + \"products/\"", {
-        params: params
-      }).then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_3___default.a.get("".concat(url, "/products/").concat($this.$route.params.productId)).then(function (response) {
         console.log(response.data);
-        $this.products = response.data;
-        console.log(JSON.parse(response.data[0].images)[0]);
+        $this.product = response.data;
       })["catch"](function (error) {
         console.log(error.message);
       });
@@ -12372,24 +12378,21 @@ __webpack_require__.r(__webpack_exports__);
       quantity: 1,
       clicked: false,
       product: {
-        name: "Sport sneaker",
-        price: 250000,
-        stars: 4.9,
-        images: ["/images/productos/final1.png", "/images/productos/final2.jpg"],
-        description: [{
-          motor: "Gasolina"
-        }, {
-          potencia: "4 hp"
-        }, {
-          masa_operacional: "4kg"
-        }, {
-          fuerza_de_impacto: "1400kg"
-        }, {
-          golpes_x_minuto: "660-700"
-        }, {
-          profundidad_de_compactacion: "0,55mt"
-        }]
+        name: "Cargando..."
       },
+      description: [{
+        motor: "Gasolina"
+      }, {
+        potencia: "4 hp"
+      }, {
+        masa_operacional: "4kg"
+      }, {
+        fuerza_de_impacto: "1400kg"
+      }, {
+        golpes_x_minuto: "660-700"
+      }, {
+        profundidad_de_compactacion: "0,55mt"
+      }],
       options: {
         height: 300,
         arrows: false
@@ -21408,7 +21411,7 @@ var render = function() {
           _c(
             "splide",
             { attrs: { options: _vm.options } },
-            _vm._l(_vm.product.images, function(src) {
+            _vm._l(JSON.parse(_vm.product.images), function(src) {
               return _c(
                 "splide-slide",
                 {
@@ -21474,7 +21477,7 @@ var render = function() {
                   _vm._v(" "),
                   _c("img", {
                     staticClass: "object-cover w-full h-full",
-                    attrs: { src: src, alt: "" }
+                    attrs: { src: "/" + src, alt: "" }
                   })
                 ]
               )
@@ -21486,7 +21489,15 @@ var render = function() {
       ),
       _vm._v(" "),
       _c("div", { staticClass: "flex justify-between mx-3" }, [
-        _vm._m(0),
+        _c("div", { staticClass: "flex flex-col justify-center" }, [
+          _c("span", { staticClass: "text-primario font-medium" }, [
+            _vm._v(
+              "$" + _vm._s(new Intl.NumberFormat().format(_vm.product.discount))
+            )
+          ]),
+          _vm._v(" "),
+          _c("h1", [_vm._v(_vm._s(_vm.product.name))])
+        ]),
         _vm._v(" "),
         _c("div", { staticClass: "flex flex-col justify-center text-sm" }, [
           _c(
@@ -21530,18 +21541,45 @@ var render = function() {
           _c(
             "span",
             { staticClass: "block text-right text-primario font-medium" },
-            [_vm._v("En stock\n      ")]
+            [
+              _vm._v(
+                "\n        " +
+                  _vm._s(_vm.product.stock != 0 ? "En stock" : "Agotado") +
+                  "\n      "
+              )
+            ]
           )
         ])
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "h-px w-full bg-blue-50" }),
       _vm._v(" "),
+      _c("div", { staticClass: "mx-4" }, [
+        _c(
+          "h3",
+          { staticClass: "text-xs capitalize text-gray-500 font-bold" },
+          [_vm._v("Descripción")]
+        ),
+        _vm._v(" "),
+        _c("p", { staticClass: "text-sm" }, [
+          _vm._v("\n      " + _vm._s(_vm.product.description) + "\n    ")
+        ])
+      ]),
+      _vm._v(" "),
       _c(
         "div",
         { staticClass: "grid grid-cols-2 mx-4 space-y-3" },
         [
-          _vm._l(_vm.product.description, function(item, index) {
+          _c(
+            "h3",
+            {
+              staticClass:
+                "text-xs col-span-2 capitalize font-bold text-gray-500"
+            },
+            [_vm._v("Ficha técnica")]
+          ),
+          _vm._v(" "),
+          _vm._l(_vm.description, function(item, index) {
             return _c(
               "div",
               { key: index, staticClass: "flex flex-col justify-center" },
@@ -21579,9 +21617,9 @@ var render = function() {
             )
           }),
           _vm._v(" "),
-          _vm._m(1),
+          _vm._m(0),
           _vm._v(" "),
-          _vm._m(2),
+          _vm._m(1),
           _vm._v(" "),
           _c(
             "div",
@@ -21674,24 +21712,12 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "h-px w-full bg-blue-50" }),
       _vm._v(" "),
-      _vm._m(3)
+      _vm._m(2)
     ],
     1
   )
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "flex flex-col justify-center" }, [
-      _c("span", { staticClass: "text-primario font-medium" }, [
-        _vm._v("$150.000")
-      ]),
-      _vm._v(" "),
-      _c("h1", {}, [_vm._v("Sporty Sneaker men")])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement

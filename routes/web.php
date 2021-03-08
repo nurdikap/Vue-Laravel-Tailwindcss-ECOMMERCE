@@ -30,7 +30,7 @@ Route::get('/categorias', function () {
 Route::get('/{category}/{subcategory}', function () {
     return view('index');
 });
-Route::get('/{product}', function () {
+Route::get('product/{productId}/{slug}', function () {
     return view('index');
 });
 

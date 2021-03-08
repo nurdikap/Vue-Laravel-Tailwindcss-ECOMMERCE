@@ -30,7 +30,8 @@ class CreateProductsTable extends Migration
 		    $table->integer('stock');
             $table->integer('sold');
             $table->boolean('featured')->nullable();
-		
+            $table->float('stars')->nullable();
+
 		    $table->foreign('subcategory_id')
 		        ->references('id')->on('subcategories')
 		        ->onDelete('cascade')

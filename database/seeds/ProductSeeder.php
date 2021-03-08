@@ -24,10 +24,11 @@ class ProductSeeder extends Seeder
             $product->reference = 'MARTILLO-'.$i;
             $product->subcategory_id = '1';
             $product->look_for_stock = 1;
-            $product->images = '["images\/productos\/1615173165_1574182305.png","images\/productos\/1615173165_1574182305.png","images\/productos\/1615173165_1574182323.png","images\/productos\/1615173165_1574182337.png","images\/productos\/1615173165_1574182424.png"]';
+            $product->images = '["images\/productos\/1615173165_1574182305.png","images\/productos\/1615173165_1574182323.png","images\/productos\/1615173165_1574182337.png","images\/productos\/1615173165_1574182424.png"]';
             $product->product_type = 'simple';
             $product->stock = 6;
             $product->sold = 2;
+            $product->stars = 4.6;
             $product->save();
     
             $product = new Product();
@@ -44,6 +45,7 @@ class ProductSeeder extends Seeder
             $product->product_type = 'simple';
             $product->stock = 6;
             $product->sold = 2;
+            $product->stars = 4.8;
             $product->save();
         }
     }

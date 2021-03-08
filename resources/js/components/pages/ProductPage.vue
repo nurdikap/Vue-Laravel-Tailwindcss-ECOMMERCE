@@ -4,7 +4,7 @@
     <div class="w-full px-2">
       <splide :options="options">
         <splide-slide
-          v-for="src in product.images"
+          v-for="src in JSON.parse(product.images)"
           :alt="product.name"
           :key="src"
           class="relative"
@@ -38,18 +38,20 @@
               d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"
             />
           </svg>
-          <img :src="src" alt="" class="object-cover w-full h-full" />
+          <img :src="`/${src}`" alt="" class="object-cover w-full h-full" />
         </splide-slide>
       </splide>
     </div>
     <div class="flex justify-between mx-3">
       <div class="flex flex-col justify-center">
-        <span class="text-primario font-medium">$150.000</span>
-        <h1 class="">Sporty Sneaker men</h1>
+        <span class="text-primario font-medium"
+          >${{ new Intl.NumberFormat().format(product.discount) }}</span
+        >
+        <h1>{{ product.name }}</h1>
       </div>
       <div class="flex flex-col justify-center text-sm">
         <div class="flex items-center">
-          <div class="" v-for="star in 5" :key="star">
+          <div v-for="star in 5" :key="star">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 20 20"
@@ -66,16 +68,23 @@
             {{ product.stars }}
           </span>
         </div>
-        <span class="block text-right text-primario font-medium"
-          >En stock
+        <span class="block text-right text-primario font-medium">
+          {{ product.stock != 0 ? "En stock" : "Agotado" }}
         </span>
       </div>
     </div>
     <div class="h-px w-full bg-blue-50"></div>
-
+    <div class="mx-4">
+      <h3 class="text-xs capitalize text-gray-500 font-bold">Descripción</h3>
+      <p class="text-sm">
+        {{ product.description }}
+      </p>
+    </div>
     <div class="grid grid-cols-2 mx-4 space-y-3">
+      <h3 class="text-xs col-span-2 capitalize font-bold text-gray-500">Ficha técnica</h3>
+
       <div
-        v-for="(item, index) in product.description"
+        v-for="(item, index) in description"
         :key="index"
         class="flex flex-col justify-center"
       >
@@ -165,14 +174,13 @@ export default {
   },
   methods: {
     getProduct: function () {
-      let url = "http://127.0.0.1:8000/api/";
+      let url = "http://127.0.0.1:8000/api";
       let $this = this;
       axios
-        .get(`url + "products/"`, { params })
+        .get(`${url}/products/${$this.$route.params.productId}`)
         .then(function (response) {
           console.log(response.data);
-          $this.products = response.data;
-          console.log(JSON.parse(response.data[0].images)[0]);
+          $this.product = response.data;
         })
         .catch(function (error) {
           console.log(error.message);
@@ -195,25 +203,18 @@ export default {
     return {
       quantity: 1,
       clicked: false,
-      product: {
-        name: "Sport sneaker",
-        price: 250000,
-        stars: 4.9,
-        images: [
-          "/images/productos/final1.png",
-          "/images/productos/final2.jpg",
-        ],
-        description: [
-          {
-            motor: "Gasolina",
-          },
-          { potencia: "4 hp" },
-          { masa_operacional: "4kg" },
-          { fuerza_de_impacto: "1400kg" },
-          { golpes_x_minuto: "660-700" },
-          { profundidad_de_compactacion: "0,55mt" },
-        ],
-      },
+      product: { name: "Cargando..." },
+      description: [
+        {
+          motor: "Gasolina",
+        },
+        { potencia: "4 hp" },
+        { masa_operacional: "4kg" },
+        { fuerza_de_impacto: "1400kg" },
+        { golpes_x_minuto: "660-700" },
+        { profundidad_de_compactacion: "0,55mt" },
+      ],
+
       options: {
         height: 300,
         arrows: false,
