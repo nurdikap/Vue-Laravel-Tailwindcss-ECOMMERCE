@@ -157,9 +157,28 @@
 import MenuSimple from "../MenuSimple.vue";
 import { Splide, SplideSlide } from "@splidejs/vue-splide";
 import "@splidejs/splide/dist/css/themes/splide-default.min.css";
+import axios from "axios";
 
 export default {
+  mounted() {
+    this.getProduct();
+  },
   methods: {
+    getProduct: function () {
+      let url = "http://127.0.0.1:8000/api/";
+      let $this = this;
+      axios
+        .get(`url + "products/"`, { params })
+        .then(function (response) {
+          console.log(response.data);
+          $this.products = response.data;
+          console.log(JSON.parse(response.data[0].images)[0]);
+        })
+        .catch(function (error) {
+          console.log(error.message);
+        });
+    },
+
     getStarColor: function (star) {
       return star <= this.product.stars ? "text-primario" : "text-gray-300";
     },
