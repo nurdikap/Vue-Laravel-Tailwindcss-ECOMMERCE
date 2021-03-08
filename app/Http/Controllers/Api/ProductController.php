@@ -166,7 +166,7 @@ class ProductController extends Controller
                 'subcategory_id' => 'required|numeric',
                 'images' => 'nullable',
             ]);
-        } else{
+        } else {
             $request->validate([
                 'name' => 'required|string',
                 'description' => 'required|string',
