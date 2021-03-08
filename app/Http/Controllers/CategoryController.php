@@ -14,7 +14,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return response (Category::all());
+        return view('layouts.admin');
     }
 
     /**
@@ -24,7 +24,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('layouts.admin');
+
     }
 
     /**
@@ -46,11 +47,11 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        return response($category);
+        return view('layouts.admin');
     }
     public function getSubcategories(Category $category)
     {
-        return response($category->subcategories);
+        return view('layouts.admin');
     }
 
     /**

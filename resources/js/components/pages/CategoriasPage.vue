@@ -33,19 +33,19 @@
           <ul class="bg-blue-100">
             <li
               v-for="subcategory in categories[selectedCategory].subcategories"
-              :key="subcategory"
+              :key="subcategory.id"
             >
               <router-link
                 :to="{
                   name: 'subcategory',
                   params: {
-                    subcategory: subcategory,
+                    subcategory: subcategory.name,
                     category: categories[selectedCategory].name,
                   },
                 }"
                 class="py-3 px-2 bg-white hover:bg-gray-50 flex justify-between cursor-pointer items-center"
               >
-                <span class="md:text-lg">{{ subcategory }}</span>
+                <span class="md:text-lg">{{ subcategory.name }}</span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -72,8 +72,28 @@
 <script>
 import Menu from "../Menu.vue";
 import CategoryCard from "../OspinaTrap/CategoryCard";
+import axios from "axios";
+
 export default {
+   mounted() {
+    this.getCategories();
+  },
+  
   methods: {
+     getCategories: function () {
+      let url = "http://127.0.0.1:8000/api/";
+      let $this = this;
+      axios
+        .get(url + "categories")
+        .then(function (response) {
+          console.log(response.data);
+          $this.categories = response.data;
+        })
+        .catch(function (error) {
+          console.log(error.message);
+        });
+    },
+
     SelectCategory: function (category) {
       console.log(category);
       this.selectedCategory = category;
@@ -85,24 +105,7 @@ export default {
   data() {
     return {
       selectedCategory: 0,
-      categories: [
-        {
-          name: "Agrícola",
-          subcategories: ["Motosierras", "Palas", "picas", "Barras"],
-        },
-        {
-          name: "Carpinteria",
-          subcategories: ["Cepillos", "Cerruchos", "Prensas", "Trovadores"],
-        },
-        {
-          name: "Construcción",
-          subcategories: ["Motosierras", "Palas", "picas", "Barras"],
-        },
-        {
-          name: "Electricos",
-          subcategories: ["Motosierras", "Palas", "picas", "Barras"],
-        },
-      ],
+      categories: []
     };
   },
   components: {

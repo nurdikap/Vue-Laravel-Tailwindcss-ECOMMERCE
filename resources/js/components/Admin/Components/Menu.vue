@@ -29,6 +29,9 @@
       <router-link class="block" :to="{ name: 'adminVariations' }">
         Variaciones
       </router-link>
+       <router-link class="block" :to="{ name: 'adminCategories' }">
+        Categorias
+      </router-link>
     </div>
     <div class="w-full py-3 flex justify-between items-center">
       <div @click="show = !show" class="flex items-center space-x-3">

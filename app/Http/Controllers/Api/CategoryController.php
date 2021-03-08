@@ -15,7 +15,11 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return response (Category::all());
+        return response (Category::with('subcategories')->get());
+    }
+    public function getFeaturedCategories()
+    {
+        return response (Category::where('featured',1)->limit(4)->get());
     }
 
     
@@ -68,6 +72,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+        return response('Category has been successfully deleted');
     }
 }
