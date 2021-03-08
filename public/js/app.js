@@ -11507,6 +11507,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -11514,13 +11525,13 @@ __webpack_require__.r(__webpack_exports__);
       clicked: false
     };
   },
-  props: ["image", "price", "discount", "name"],
+  props: ["image", "price", "discount", "name", "id", "slug"],
   computed: {
     getImage: function getImage() {
       return "url(" + this.image + ")";
     },
     getBackground: function getBackground() {
-      return this.clicked ? '#2291FF' : 'none';
+      return this.clicked ? "#2291FF" : "none";
     }
   },
   components: {
@@ -12165,6 +12176,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _splidejs_vue_splide__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @splidejs/vue-splide */ "./node_modules/@splidejs/vue-splide/src/js/index.js");
 /* harmony import */ var _splidejs_splide_dist_css_themes_splide_default_min_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @splidejs/splide/dist/css/themes/splide-default.min.css */ "./node_modules/@splidejs/splide/dist/css/themes/splide-default.min.css");
 /* harmony import */ var _splidejs_splide_dist_css_themes_splide_default_min_css__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_splidejs_splide_dist_css_themes_splide_default_min_css__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_3__);
 //
 //
 //
@@ -12320,11 +12333,28 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  mounted: function mounted() {
+    this.getProduct();
+  },
   methods: {
+    getProduct: function getProduct() {
+      var url = "http://127.0.0.1:8000/api/";
+      var $this = this;
+      axios__WEBPACK_IMPORTED_MODULE_3___default.a.get("url + \"products/\"", {
+        params: params
+      }).then(function (response) {
+        console.log(response.data);
+        $this.products = response.data;
+        console.log(JSON.parse(response.data[0].images)[0]);
+      })["catch"](function (error) {
+        console.log(error.message);
+      });
+    },
     getStarColor: function getStarColor(star) {
       return star <= this.product.stars ? "text-primario" : "text-gray-300";
     }
@@ -12384,8 +12414,10 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Menu_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../Menu.vue */ "./resources/js/components/Menu.vue");
-/* harmony import */ var _OspinaTrap_ProductCardSimple__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../OspinaTrap/ProductCardSimple */ "./resources/js/components/OspinaTrap/ProductCardSimple.vue");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _Menu_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Menu.vue */ "./resources/js/components/Menu.vue");
+/* harmony import */ var _OspinaTrap_ProductCardSimple__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../OspinaTrap/ProductCardSimple */ "./resources/js/components/OspinaTrap/ProductCardSimple.vue");
 //
 //
 //
@@ -12430,11 +12462,31 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  mounted: function mounted() {
+    this.getBySubcategory();
+  },
   methods: {
+    getBySubcategory: function getBySubcategory() {
+      var url = "http://127.0.0.1:8000/api/";
+      var $this = this;
+      var params = {
+        subcategory: this.$route.params.subcategory
+      };
+      console.log(params);
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(url + "products/getBySubcategory", {
+        params: params
+      }).then(function (response) {
+        console.log(response.data);
+        $this.products = response.data;
+        console.log(JSON.parse(response.data[0].images)[0]);
+      })["catch"](function (error) {
+        console.log(error.message);
+      });
+    },
     isSelected: function isSelected(index) {
       return index == this.selectedItem ? true : false;
     },
@@ -12443,63 +12495,13 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   components: {
-    Menu: _Menu_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
-    ProductCardSimple: _OspinaTrap_ProductCardSimple__WEBPACK_IMPORTED_MODULE_1__["default"]
+    Menu: _Menu_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+    ProductCardSimple: _OspinaTrap_ProductCardSimple__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   data: function data() {
     return {
       selectedItem: null,
-      products: [{
-        name: "Martillo",
-        price: 60000,
-        discount: 0.2,
-        image: "/images/productos/final1.png"
-      }, {
-        name: "Taladro",
-        price: 155000,
-        discount: 0.3,
-        image: "/images/productos/final2.jpg"
-      }, {
-        name: "Martillo",
-        price: 60000,
-        discount: 0.2,
-        image: "/images/productos/final1.png"
-      }, {
-        name: "Taladro",
-        price: 155000,
-        discount: 0.3,
-        image: "/images/productos/final2.jpg"
-      }, {
-        name: "Martillo",
-        price: 60000,
-        discount: 0.2,
-        image: "/images/productos/final1.png"
-      }, {
-        name: "Taladro",
-        price: 155000,
-        discount: 0.3,
-        image: "/images/productos/final2.jpg"
-      }, {
-        name: "Martillo",
-        price: 60000,
-        discount: 0.2,
-        image: "/images/productos/final1.png"
-      }, {
-        name: "Taladro",
-        price: 155000,
-        discount: 0.3,
-        image: "/images/productos/final2.jpg"
-      }, {
-        name: "Martillo",
-        price: 60000,
-        discount: 0.2,
-        image: "/images/productos/final1.png"
-      }, {
-        name: "Taladro",
-        price: 1558000,
-        discount: 0.3,
-        image: "/images/productos/final2.jpg"
-      }]
+      products: []
     };
   }
 });
@@ -20234,41 +20236,62 @@ var render = function() {
     "div",
     { staticClass: "flex flex-col w-full h-full space-y-1.5 pb-2 bg-gray-50" },
     [
-      _c("div", { staticClass: "relative" }, [
-        _c("img", {
-          staticClass: "w-full h-36 object-fill object-center",
-          attrs: { src: _vm.image, alt: "" }
-        }),
-        _vm._v(" "),
-        _c(
-          "svg",
-          {
-            staticClass: "w-6 h-6 absolute right-1.5 top-1 text-primario",
-            attrs: {
-              xmlns: "http://www.w3.org/2000/svg",
-              fill: _vm.getBackground,
-              viewBox: "0 0 24 24",
-              stroke: "currentColor"
-            },
-            on: {
-              click: function($event) {
-                _vm.clicked = !_vm.clicked
-              }
-            }
-          },
-          [
-            _c("path", {
+      _c(
+        "div",
+        { staticClass: "relative" },
+        [
+          _c(
+            "router-link",
+            {
               attrs: {
-                "stroke-linecap": "round",
-                "stroke-linejoin": "round",
-                "stroke-width": "1",
-                d:
-                  "M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                to: {
+                  name: "product",
+                  params: {
+                    productId: _vm.id,
+                    slug: _vm.slug
+                  }
+                }
               }
-            })
-          ]
-        )
-      ]),
+            },
+            [
+              _c("img", {
+                staticClass: "w-full h-36 object-fill object-center",
+                attrs: { src: _vm.image, alt: "" }
+              })
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "svg",
+            {
+              staticClass: "w-6 h-6 absolute right-1.5 top-1 text-primario",
+              attrs: {
+                xmlns: "http://www.w3.org/2000/svg",
+                fill: _vm.getBackground,
+                viewBox: "0 0 24 24",
+                stroke: "currentColor"
+              },
+              on: {
+                click: function($event) {
+                  _vm.clicked = !_vm.clicked
+                }
+              }
+            },
+            [
+              _c("path", {
+                attrs: {
+                  "stroke-linecap": "round",
+                  "stroke-linejoin": "round",
+                  "stroke-width": "1",
+                  d:
+                    "M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                }
+              })
+            ]
+          )
+        ],
+        1
+      ),
       _vm._v(" "),
       _c("div", { staticClass: "font-light mx-2" }, [
         _vm._v("\n    " + _vm._s(_vm.name) + "\n  ")
@@ -20278,9 +20301,7 @@ var render = function() {
         _c("span", { staticClass: "text-enfatizado font-medium" }, [
           _vm._v(
             "\n      $" +
-              _vm._s(
-                new Intl.NumberFormat().format(_vm.price * (1 - _vm.discount))
-              ) +
+              _vm._s(new Intl.NumberFormat().format(_vm.discount)) +
               "\n    "
           )
         ]),
@@ -20289,13 +20310,13 @@ var render = function() {
           "div",
           {
             staticClass:
-              "text-xs\tspace-x-0.5 bg-primario rounded p-1 flex justify-between items-center text-white"
+              "text-xs space-x-0.5 bg-primario rounded p-1 flex justify-between items-center text-white"
           },
           [
             _c(
               "svg",
               {
-                staticClass: "w-3 h-3 ",
+                staticClass: "w-3 h-3",
                 attrs: {
                   xmlns: "http://www.w3.org/2000/svg",
                   viewBox: "0 0 20 20",
@@ -21744,9 +21765,7 @@ var render = function() {
   return _c("div", { staticClass: "flex flex-col w-full space-y-2" }, [
     _c(
       "div",
-      {
-        staticClass: "flex items-center justify-around space-x-4 pr-1 pl-3 \n  "
-      },
+      { staticClass: "flex items-center justify-around space-x-4 pr-1 pl-3" },
       [
         _c(
           "svg",
@@ -21791,19 +21810,16 @@ var render = function() {
             class: {
               "border-primario": _vm.isSelected(index),
               "border-gray-100": !_vm.isSelected(index)
-            },
-            on: {
-              click: function($event) {
-                return _vm.selectThis(index)
-              }
             }
           },
           [
             _c("ProductCardSimple", {
               attrs: {
-                image: product.image,
+                image: "/" + JSON.parse(product.images)[0],
                 price: product.price,
+                id: product.id,
                 name: product.name,
+                slug: product.slug,
                 discount: product.discount
               }
             })
@@ -39335,7 +39351,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     name: "checkout",
     component: __webpack_require__(/*! ./components/pages/Checkout.vue */ "./resources/js/components/pages/Checkout.vue")["default"]
   }, {
-    path: "/:product",
+    path: "/product/:productId/:slug",
     name: "product",
     component: __webpack_require__(/*! ./components/pages/ProductPage.vue */ "./resources/js/components/pages/ProductPage.vue")["default"]
   }],

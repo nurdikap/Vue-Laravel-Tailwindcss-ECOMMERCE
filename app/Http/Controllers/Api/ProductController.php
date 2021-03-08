@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 
 use App\Product;
+use App\Subcategory;
 use App\Variation;
 use Illuminate\Http\Request;
 
@@ -17,7 +18,14 @@ class ProductController extends Controller
      */
     public function index()
     {
+
         return Product::with('variations')->get();
+    }
+
+    public function getBySubcategory(Request $request){
+        $subcategory = Subcategory::where('name',$request->subcategory)->first();
+        if(!$subcategory) return response ('Not found',404);
+        return response(Product::where('subcategory_id', $subcategory->id)->get());
     }
 
     /**

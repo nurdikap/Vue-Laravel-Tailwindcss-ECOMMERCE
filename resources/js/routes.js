@@ -71,7 +71,7 @@ export default new Router({
             component: require("./components/pages/Checkout.vue").default
         },
         {
-            path: "/:product",
+            path: "/product/:productId/:slug",
             name: "product",
             component: require("./components/pages/ProductPage.vue").default
         },

@@ -13,11 +13,17 @@ class SubcategorySeeder extends Seeder
     public function run()
     {
         $subcategory = new Subcategory();
-        $subcategory->description = 'Descripcion 1';
+        $subcategory->description = 'Descripcion martillos';
         $subcategory->image = json_encode(['imagen1']);
-        $subcategory->name = 'Palas';
-        $subcategory->category_id = 1;
+        $subcategory->name = 'Martillos';
+        $subcategory->category_id = 3;
+        $subcategory->save();
 
+        $subcategory = new Subcategory();
+        $subcategory->description = 'Descripcion taladros';
+        $subcategory->image = json_encode(['imagen1']);
+        $subcategory->name = 'Taladros';
+        $subcategory->category_id = 2;
         $subcategory->save();
     }
 }

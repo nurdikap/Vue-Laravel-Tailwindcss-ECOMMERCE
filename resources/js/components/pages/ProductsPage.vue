@@ -1,14 +1,12 @@
 <template>
   <div class="flex flex-col w-full space-y-2">
-    <div class="flex items-center justify-around space-x-4 pr-1 pl-3 
-    ">
+    <div class="flex items-center justify-around space-x-4 pr-1 pl-3">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
         class="w-6 h-6 text-texto"
-
       >
         <path
           stroke-linecap="round"
@@ -25,7 +23,6 @@
       <div
         v-for="(product, index) in products"
         :key="index"
-        @click="selectThis(index)"
         class="rounded overflow-hidden border-2"
         :class="{
           'border-primario': isSelected(index),
@@ -33,9 +30,11 @@
         }"
       >
         <ProductCardSimple
-          :image="product.image"
+          :image="`/${JSON.parse(product.images)[0]}`"
           :price="product.price"
+          :id="product.id"
           :name="product.name"
+          :slug="product.slug"
           :discount="product.discount"
         />
       </div>
@@ -44,10 +43,33 @@
 </template>
 
 <script>
+import axios from "axios";
 import Menu from "../Menu.vue";
 import ProductCardSimple from "../OspinaTrap/ProductCardSimple";
 export default {
+  mounted() {
+    this.getBySubcategory();
+  },
   methods: {
+    getBySubcategory: function () {
+      let url = "http://127.0.0.1:8000/api/";
+      let $this = this;
+      let params = {
+        subcategory: this.$route.params.subcategory,
+      };
+      console.log(params);
+      axios
+        .get(url + "products/getBySubcategory", { params })
+        .then(function (response) {
+          console.log(response.data);
+          $this.products = response.data;
+          console.log(JSON.parse(response.data[0].images)[0]);
+        })
+        .catch(function (error) {
+          console.log(error.message);
+        });
+    },
+
     isSelected: function (index) {
       return index == this.selectedItem ? true : false;
     },
@@ -62,68 +84,7 @@ export default {
   data() {
     return {
       selectedItem: null,
-      products: [
-        {
-          name: "Martillo",
-          price: 60000,
-          discount: 0.2,
-          image: "/images/productos/final1.png",
-        },
-        {
-          name: "Taladro",
-          price: 155000,
-          discount: 0.3,
-          image: "/images/productos/final2.jpg",
-        },
-        {
-          name: "Martillo",
-          price: 60000,
-          discount: 0.2,
-          image: "/images/productos/final1.png",
-        },
-        {
-          name: "Taladro",
-          price: 155000,
-          discount: 0.3,
-          image: "/images/productos/final2.jpg",
-        },
-        {
-          name: "Martillo",
-          price: 60000,
-          discount: 0.2,
-          image: "/images/productos/final1.png",
-        },
-        {
-          name: "Taladro",
-          price: 155000,
-          discount: 0.3,
-          image: "/images/productos/final2.jpg",
-        },
-        {
-          name: "Martillo",
-          price: 60000,
-          discount: 0.2,
-          image: "/images/productos/final1.png",
-        },
-        {
-          name: "Taladro",
-          price: 155000,
-          discount: 0.3,
-          image: "/images/productos/final2.jpg",
-        },
-        {
-          name: "Martillo",
-          price: 60000,
-          discount: 0.2,
-          image: "/images/productos/final1.png",
-        },
-        {
-          name: "Taladro",
-          price: 1558000,
-          discount: 0.3,
-          image: "/images/productos/final2.jpg",
-        },
-      ],
+      products: [],
     };
   },
 };

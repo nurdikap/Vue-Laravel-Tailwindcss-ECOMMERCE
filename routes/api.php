@@ -14,7 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('products/getBySubcategory','Api\ProductController@getBySubcategory');
 Route::apiResource('products','Api\ProductController');
+
 Route::apiResource('variations','Api\VariationController');
 Route::apiResource('attributes','Api\AttributeController');
 
