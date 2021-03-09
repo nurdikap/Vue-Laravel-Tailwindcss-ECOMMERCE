@@ -19,7 +19,7 @@ class ProductSeeder extends Seeder
             $product->slug = 'Martillo-'.$i;
             $product->price = 30000;
             $product->discount = 20000;
-            $product->description = 'Martillo marca ingercol larga';
+            $product->description = '[{"Motor":"Gasolina"},{"Potencia":" 4 HP"},{"Masa Operacional":" 4kg"},{"Fuerza de impacto":" 1400kg"},{"Golpes por minuto":" 660-700"}]';
             $product->short_description = 'Martillo corta';
             $product->reference = 'MARTILLO-'.$i;
             $product->subcategory_id = '1';
@@ -36,7 +36,7 @@ class ProductSeeder extends Seeder
             $product->slug = 'Taladro-'.$i;
             $product->price = 30000;
             $product->discount = 20000;
-            $product->description = 'Taladro marca ingercol larga';
+            $product->description = '[{"Motor":"Gasolina"},{"Potencia":" 4 HP"},{"Masa Operacional":" 4kg"},{"Fuerza de impacto":" 1400kg"},{"Golpes por minuto":" 660-700"}]';
             $product->short_description = 'Taladro corta';
             $product->reference = 'Taladro-'.$i;
             $product->subcategory_id = '2';

@@ -5,7 +5,7 @@
     </div>
     <div class="grid grid-cols-5 mt-2 w-full gap-x-4">
       <div v-for="featuredCategorie in featuredCategories" :key="featuredCategorie.id" class="flex flex-col justify-start items-center p-3">
-        <div class="bg-blue-50 p-2.5 rounded-full">
+        <router-link :to="{name:'categories', params:{selectedCategory:featuredCategorie.name}}" class="bg-blue-50 p-2.5 rounded-full">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -20,11 +20,11 @@
               :d="featuredCategorie.icon"
             />
           </svg>
-        </div>
+        </router-link>
         <h4 class="text-center text-xs font-gray-500 font-light">{{featuredCategorie.name}}</h4>
       </div>
 
-      <div class="flex flex-col justify-start items-center p-3">
+      <router-link :to="{name: 'categories'}" class="flex flex-col justify-start items-center p-3">
         <div class="bg-blue-50 p-2.5 rounded-full">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -43,7 +43,8 @@
         </div>
 
         <h4 class="text-center text-xs font-gray-500 font-light">Ver más</h4>
-      </div>
+      </router-link>
+
     </div>
   </div>
 </template>

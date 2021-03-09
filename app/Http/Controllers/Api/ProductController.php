@@ -22,9 +22,10 @@ class ProductController extends Controller
         return Product::with('variations')->get();
     }
 
-    public function getBySubcategory(Request $request){
-        $subcategory = Subcategory::where('name',$request->subcategory)->first();
-        if(!$subcategory) return response ('Not found',404);
+    public function getBySubcategory(Request $request)
+    {
+        $subcategory = Subcategory::where('name', $request->subcategory)->first();
+        if (!$subcategory) return response('Not found', 404);
         return response(Product::where('subcategory_id', $subcategory->id)->get());
     }
 
@@ -36,9 +37,8 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validateProduct($request);
+        //$this->validateProduct($request);
         $product = $this->createProductFromRequest($request);
-
         //Lets create the variations for the product
 
         foreach (json_decode($request->input('variations')) as $variation) {
@@ -62,6 +62,23 @@ class ProductController extends Controller
         return response($product);
     }
 
+    public function edit(Product $product)
+    {
+        $response = $product;
+        $response['description'] = json_decode($response['description']);
+        $newDescription = '';
+        $aux = array_key_last ($response['description']);
+        $doNotJump = false;
+        foreach ($response['description'] as $key => $arrayItem) {
+            $doNotJump = $key == $aux ? true:false;
+            foreach ($arrayItem as $key => $value) {
+                $newDescription = $doNotJump ? $newDescription.$key . ":" . $value:$newDescription.$key . ":" . $value."\n";
+            }
+        }
+        $response['description'] = $newDescription;
+        return response($response);
+    }
+
 
     /**
      * Update the specified resource in storage.
@@ -74,11 +91,15 @@ class ProductController extends Controller
     {
 
         $this->validateProduct($request, true);
-        $imagenes = $this->saveImagesFromRequest($request);
         $array = $request->all();
         unset($array['image']);
+        unset($array['description']);
         $product->update($array);
-        $product->images = json_encode($imagenes);
+        if ($request->hasFile('image')) {
+            $imagenes = $this->saveImagesFromRequest($request);
+            $product->images = json_encode($imagenes);
+        }
+        $product->description = $this->descriptionToJson($request->description);
         $product->save();
         return $product->id;
     }
@@ -122,7 +143,8 @@ class ProductController extends Controller
 
         $product = new Product();
         $product->name = $request->name;
-        $product->description = $request->description;
+
+        $product->description = $this->descriptionToJson($request->description);
         $product->short_description = $request->short_description;
         $product->price = $request->price;
         $product->discount = $request->discount;
@@ -135,6 +157,19 @@ class ProductController extends Controller
         $product->images = json_encode($imagenes);
         $product->save();
         return $product;
+    }
+    public function descriptionToJson($description)
+    {
+        $descriptionAux = preg_split('/\r\n|[\r\n]/', $description);
+        $description = [];
+        foreach ($descriptionAux as $item) {
+            $keyValue = explode(':', $item);
+            $aux = (object)[
+                $keyValue[0] => $keyValue[1]
+            ];
+            array_push($description, $aux);
+        }
+        return json_encode($description);
     }
     public function saveImagesFromRequest($request)
     {

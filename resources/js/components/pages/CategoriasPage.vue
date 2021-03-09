@@ -6,10 +6,10 @@
       <h2 class="text-2xl font-semibold ml-4">Todas las categorias</h2>
     </div>
     <div class="grid grid-cols-5 w-full">
-      <div class="flex flex-col space-y-5 ml-4 col-span-2">
+      <div class="flex flex-col space-y-5 ml-4 col-span-2 cursor-pointer">
         <div
           v-for="(category, index) in categories"
-          :key="category.name"
+          :key="index"
           @click="SelectCategory(index)"
           class="categoryShadow rounded-lg"
         >
@@ -24,7 +24,7 @@
         </div>
       </div>
 
-      <div class="col-span-3 font-light">
+      <div class="col-span-3 font-light" v-if="isLoaded">
         <span
           class="text-light md:text-2xl text-lg uppercase ml-4 font-medium text-enfatizado"
           >{{ categories[selectedCategory].name }}</span
@@ -75,12 +75,12 @@ import CategoryCard from "../OspinaTrap/CategoryCard";
 import axios from "axios";
 
 export default {
-   mounted() {
+  mounted() {
     this.getCategories();
   },
-  
+
   methods: {
-     getCategories: function () {
+    getCategories: function () {
       let url = "http://127.0.0.1:8000/api/";
       let $this = this;
       axios
@@ -88,12 +88,27 @@ export default {
         .then(function (response) {
           console.log(response.data);
           $this.categories = response.data;
+          if ($this.$route.params.selectedCategory != undefined) {
+            console.log('entre')
+            $this.selectedCategory = $this.searchCategoryId(
+              $this.$route.params.selectedCategory
+            );
+          }
+          $this.isLoaded =true;
         })
         .catch(function (error) {
           console.log(error.message);
         });
     },
-
+    searchCategoryId: function (categoryName) {
+      let response = 0;
+      this.categories.forEach(function (category, index) {
+        if(category.name == categoryName){
+          response = index;
+        };
+      });
+      return response;
+    },
     SelectCategory: function (category) {
       console.log(category);
       this.selectedCategory = category;
@@ -105,7 +120,8 @@ export default {
   data() {
     return {
       selectedCategory: 0,
-      categories: []
+      categories: [],
+      isLoaded: false,
     };
   },
   components: {

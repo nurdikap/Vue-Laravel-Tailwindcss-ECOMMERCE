@@ -2,7 +2,7 @@
   <div class="flex flex-col min-h-screen w-full space-y-5 bg-gray-50">
     <MenuSimple />
     <div class="w-full px-2">
-      <splide :options="options">
+      <splide v-if="isLoaded" :options="options">
         <splide-slide
           v-for="src in JSON.parse(product.images)"
           :alt="product.name"
@@ -77,14 +77,14 @@
     <div class="mx-4">
       <h3 class="text-xs capitalize text-gray-500 font-bold">Descripción</h3>
       <p class="text-sm">
-        {{ product.description }}
+        {{ product.short_description }}
       </p>
     </div>
     <div class="grid grid-cols-2 mx-4 space-y-3">
       <h3 class="text-xs col-span-2 capitalize font-bold text-gray-500">Ficha técnica</h3>
 
       <div
-        v-for="(item, index) in description"
+        v-for="(item, index) in JSON.parse(product.description)"
         :key="index"
         class="flex flex-col justify-center"
       >
@@ -100,7 +100,7 @@
       </div>
 
       <div class="col-span-2">
-        <span class="text-xs capitalize text-gray-500 font-medium">
+        <span class="text-xs capitalize text-gray-500 font-bold">
           Cantidad
         </span>
       </div>
@@ -169,18 +169,19 @@ import "@splidejs/splide/dist/css/themes/splide-default.min.css";
 import axios from "axios";
 
 export default {
-  mounted() {
-    this.getProduct();
+  async mounted() {
+    await this.getProduct();
   },
   methods: {
-    getProduct: function () {
+    getProduct: async function () {
       let url = "http://127.0.0.1:8000/api";
       let $this = this;
-      axios
+      await axios
         .get(`${url}/products/${$this.$route.params.productId}`)
         .then(function (response) {
           console.log(response.data);
           $this.product = response.data;
+          $this.isLoaded = true;
         })
         .catch(function (error) {
           console.log(error.message);
@@ -203,22 +204,12 @@ export default {
     return {
       quantity: 1,
       clicked: false,
-      product: { name: "Cargando..." },
-      description: [
-        {
-          motor: "Gasolina",
-        },
-        { potencia: "4 hp" },
-        { masa_operacional: "4kg" },
-        { fuerza_de_impacto: "1400kg" },
-        { golpes_x_minuto: "660-700" },
-        { profundidad_de_compactacion: "0,55mt" },
-      ],
-
+      product: { name: "Cargando...", description: "[]"},
       options: {
         height: 300,
         arrows: false,
       },
+      isLoaded:false
     };
   },
   components: {

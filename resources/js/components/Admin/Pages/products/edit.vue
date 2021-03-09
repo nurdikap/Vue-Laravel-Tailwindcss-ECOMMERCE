@@ -167,7 +167,7 @@ export default {
       let $this = this;
       let respuesta = "";
       await axios
-        .get(url + "products/" + $this.$route.params.product)
+        .get(`${url}products/${$this.$route.params.product}/edit`)
         .then(function (response) {
           console.log(response.data);
           respuesta = response.data;

@@ -1,7 +1,7 @@
 <template>
   <div class="w-full h-screen flex flex-col">
    
-    <label for="name">Nombre del productossss</label>
+    <label for="name">Nombre del producto</label>
     <input type="text" id="name" name="name" placeholder="Nombre del producto">
 
     <label for="price">Precio del producto</label>

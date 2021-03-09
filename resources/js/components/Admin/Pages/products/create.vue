@@ -461,7 +461,7 @@ export default {
           $this.confirmationMensaje =
             "Se ha creado exitosamente el producto con ID: " + response.data;
           $this.$modal.show("modalExito");
-          console.log(response);
+          console.log(response.data);
         })
         .catch((error) => {
           let respuesta = error.response.data.errors;

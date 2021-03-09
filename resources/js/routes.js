@@ -51,8 +51,8 @@ export default new Router({
             component: require("./components/pages/index.vue").default
         },
         {
-            path: "/categorias/",
-            name: "categorias",
+            path: "/categorias/:selectedCategory?",
+            name: "categories",
             component: require("./components/pages/CategoriasPage.vue").default
         },
         {

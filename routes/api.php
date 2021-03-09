@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
+Route::get('products/{product}/edit','Api\ProductController@edit');
 Route::get('products/getBySubcategory','Api\ProductController@getBySubcategory');
 Route::apiResource('products','Api\ProductController');
 

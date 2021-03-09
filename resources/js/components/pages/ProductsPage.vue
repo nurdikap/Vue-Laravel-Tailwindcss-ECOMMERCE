@@ -1,20 +1,22 @@
 <template>
   <div class="flex flex-col w-full space-y-2">
     <div class="flex items-center justify-around space-x-4 pr-1 pl-3">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        class="w-6 h-6 text-texto"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M15 19l-7-7 7-7"
-        />
-      </svg>
+      <router-link :to="{ name: 'categories',params:{selectedCategory:$route.params.category} }">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          class="w-6 h-6 text-texto"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M15 19l-7-7 7-7"
+          />
+        </svg>
+      </router-link>
       <Menu class="flex-grow" />
     </div>
     <div
